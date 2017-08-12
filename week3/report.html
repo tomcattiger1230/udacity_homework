@@ -11809,7 +11809,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># 检查你的Python版本</span>
@@ -11825,7 +11825,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># 引入这个项目需要的库</span>
@@ -11880,7 +11880,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># 显示数据集的一个描述</span>
@@ -12022,7 +12022,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># TODO：从数据集中选择三个你希望抽样的数据点的索引</span>
@@ -12169,7 +12169,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># TODO：为DataFrame创建一个副本，用&#39;drop&#39;函数丢弃一些指定的特征</span>
@@ -12198,7 +12198,7 @@ div#notebook {
 
 
 <div class="output_area">
-<div class="prompt output_prompt">Out[5]:</div>
+<div class="prompt output_prompt">Out[6]:</div>
 
 
 
@@ -12245,7 +12245,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># 对于数据中的每一对特征构造一个散布矩阵</span>
@@ -14068,7 +14068,7 @@ DMMwDMMwjCny/wF2eAYjCf/r7QAAAABJRU5ErkJggg==
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&lt;matplotlib.axes._subplots.AxesSubplot at 0x11420d690&gt;</pre>
+<pre>&lt;matplotlib.axes._subplots.AxesSubplot at 0x1163c0910&gt;</pre>
 </div>
 
 </div>
@@ -19937,8 +19937,8 @@ CyZJkiRJ6rBgkiRJkqSO/wUmsGpjgOjg6AAAAABJRU5ErkJggg==
 <ul>
 <li>第一个主成分总方差.7108</li>
 <li>前二个主成分总方差 .9334</li>
-<li>D1：生鲜和冷冻食品呈现正相关，但是两者权值都不大；在负相关的几个分类中清洁纸的负相关权值最大。</li>
-<li>D2：所有特征都呈现负相关，其中冷冻食品，生鲜和熟食权值比较大。</li>
+<li>D1：生鲜和冷冻食品呈现正相关，但是两者权值都不大；在负相关的几个分类中清洁纸的负相关权值最大，可能为小食品客户或者酒店</li>
+<li>D2：所有特征都呈现负相关，其中冷冻食品，生鲜和熟食权值比较大，食品零售商的可能性比较大</li>
 <li>D3：冷冻食品和熟食呈现正相关而生鲜呈现明显的负相关且权值较大，可能为无生鲜的食品商</li>
 <li>D4：冷冻食品的权值最大，而熟食的负权值最大，可能是冷冻食品为主业的客户</li>
 </ul>
@@ -20198,7 +20198,7 @@ CyZJkiRJ6rBgkiRJkqSO/wUmsGpjgOjg6AAAAABJRU5ErkJggg==
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&lt;matplotlib.axes._subplots.AxesSubplot at 0x11351c350&gt;</pre>
+<pre>&lt;matplotlib.axes._subplots.AxesSubplot at 0x114ae3950&gt;</pre>
 </div>
 
 </div>
@@ -21266,6 +21266,21 @@ TkSuQmCC
 </div>
 
 </div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[18]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># # Create a biplot</span>
+<span class="c1"># rs.biplot(good_data, reduced_data, pca)</span>
+<span class="c1"># pca_results = rs.pca_results(good_data, pca)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -21305,9 +21320,11 @@ TkSuQmCC
 <p><strong>回答:</strong></p>
 <ul>
 <li>K Means 的的优点有 收敛快，参数比较少</li>
-<li>GMM 可以对不同维度数据的重要性进行建模，可以给数据点属于不同类的概率</li>
+<li>GMM 可以对不同维度数据的重要性进行建模，可以给数据点属于不同类的概率, 它的信息量比简单的一个结果要多，可以把这个概率转换为一个 score ，表示算法对所得出的结果的把握。</li>
 <li>选择GMM<ul>
-<li>本题数据比较复杂，没有明显的聚类，K-Means这类硬分类的方法不是很合适</li>
+<li>本题数据比较复杂，用GMM可以比较快</li>
+<li>本题数据维度比较多</li>
+<li>数据之间没有明显的聚类，互相都靠得比较近，K-Means这类硬分类的方法不是很合适</li>
 </ul>
 </li>
 </ul>
@@ -23044,6 +23061,19 @@ hgAAAABJRU5ErkJggg==
 </div>
 
 </div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span> 
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -23068,6 +23098,55 @@ hgAAAABJRU5ErkJggg==
 
 </div>
 </div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="kn">from</span> <span class="nn">mpl_toolkits.mplot3d</span> <span class="kn">import</span> <span class="n">Axes3D</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">matplotlib.cm</span> <span class="kn">as</span> <span class="nn">cm</span>
+<span class="o">%</span> <span class="n">matplotlib</span> <span class="n">notebook</span>
+
+<span class="c1"># use 3-component PCA</span>
+<span class="n">reduced_data3</span> <span class="o">=</span> <span class="n">PCA</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">good_data</span><span class="p">)</span>
+<span class="n">reduced_data3</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">reduced_data3</span><span class="p">,</span> 
+                <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Dimension 1&#39;</span><span class="p">,</span> <span class="s1">&#39;Dimension 2&#39;</span><span class="p">,</span> <span class="s1">&#39;Dimension 3&#39;</span><span class="p">])</span>
+
+<span class="c1"># get the label (check visuals.py)  </span>
+<span class="n">channel</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;customers.csv&quot;</span><span class="p">)[</span><span class="s1">&#39;Channel&#39;</span><span class="p">]</span>
+<span class="n">channel</span> <span class="o">=</span> <span class="n">channel</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">channel</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="n">outliers</span><span class="p">])</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
+<span class="n">labeled</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">reduced_data3</span><span class="p">,</span> <span class="n">channel</span><span class="p">],</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Hotel/Restaurant/Cafe&#39;</span><span class="p">,</span> <span class="s1">&#39;Retailer&#39;</span><span class="p">]</span>
+
+<span class="c1"># group by label</span>
+<span class="n">grouped</span> <span class="o">=</span> <span class="n">labeled</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;Channel&#39;</span><span class="p">)</span>
+
+<span class="c1"># color stuff</span>
+<span class="n">cmap</span> <span class="o">=</span> <span class="n">cm</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="s1">&#39;gist_rainbow&#39;</span><span class="p">)</span>
+
+<span class="c1"># scatter plot</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">axe3d</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">gca</span><span class="p">(</span><span class="n">projection</span> <span class="o">=</span> <span class="s1">&#39;3d&#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">data3</span> <span class="ow">in</span> <span class="n">grouped</span><span class="p">:</span>
+    <span class="n">axe3d</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">data3</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span><span class="n">data3</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span><span class="n">data3</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">2</span><span class="p">],</span>
+                  <span class="n">c</span> <span class="o">=</span> <span class="n">cmap</span><span class="p">((</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="mf">1.0</span><span class="o">/</span><span class="mi">2</span><span class="p">),</span><span class="n">label</span> <span class="o">=</span> <span class="n">labels</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">linewidth</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span>
+
+<span class="n">axe3d</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Dimension 1&#39;</span><span class="p">)</span>
+<span class="n">axe3d</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Dimension 2&#39;</span><span class="p">)</span>
+<span class="n">axe3d</span><span class="o">.</span><span class="n">set_zlabel</span><span class="p">(</span><span class="s1">&#39;Dimension 3&#39;</span><span class="p">)</span>
+<span class="n">axe3d</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">labeled</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span><span class="n">labeled</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
+<span class="n">axe3d</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">labeled</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span><span class="n">labeled</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
+<span class="n">axe3d</span><span class="o">.</span><span class="n">set_zlim</span><span class="p">(</span><span class="n">labeled</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span><span class="n">labeled</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>   
+<span class="n">axe3d</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
 </div>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
