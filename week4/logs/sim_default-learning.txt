@@ -1,0 +1,34 @@
+/-----------------------------------------
+| State-action rewards from Q-Learning
+\-----------------------------------------
+
+(False, True, False, True)
+ -- forward : -3.40
+ -- left : -5.17
+ -- right : 1.31
+ -- None : 0.00
+
+(False, True, True, True)
+ -- forward : -18.23
+ -- left : -10.44
+ -- right : 0.96
+ -- None : 0.00
+
+(False, True, True, False)
+ -- forward : 1.74
+ -- left : 0.00
+ -- right : 0.00
+ -- None : 0.00
+
+(True, True, True, True)
+ -- forward : -4.77
+ -- left : -4.92
+ -- right : -5.50
+ -- None : 1.83
+
+(False, False, True, True)
+ -- forward : 0.72
+ -- left : 0.00
+ -- right : 0.00
+ -- None : 0.00
+
