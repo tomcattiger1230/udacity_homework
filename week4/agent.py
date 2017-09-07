@@ -32,19 +32,22 @@ class LearningAgent(Agent):
 
         # Select the destination as the new location to route to
         self.planner.route_to(destination)
+        
         ########### 
         ## TO DO ##
         ###########
         # Update epsilon using a decay function of your choice
-               
+        # Update additional class parameters as needed
+        # If 'testing' is True, set epsilon and alpha to 0
         # linear 
         # self.epsilon -= 0.05
         # e^t
-        self.epsilon = math.exp(-.65*self.cnt) # .65 a, a+
+        # self.epsilon = math.exp(-.15*self.cnt) # 
         # 1/t^2
-        # self.epsilon = math.pow((1/self.cnt), 2)  # b, f
+        # self.epsilon = 100 * math.pow((1/self.cnt), 2)  # 
         # a^t
-        # self.epsilon = math.pow(.5, self.cnt) # a, a
+        self.epsilon = math.pow(.99, self.cnt) # 
+       
         # Update additional class parameters as needed
         self.cnt += 1
         # If 'testing' is True, set epsilon and alpha to 0
@@ -52,7 +55,6 @@ class LearningAgent(Agent):
         if testing:
             self.epsilon = 0
             self.alpha = 0
-
         return None
 
     def build_state(self):
@@ -69,54 +71,11 @@ class LearningAgent(Agent):
         ## TO DO ##
         ###########
         # Set 'state' as a tuple of relevant data for the agent        
-        state = None
-        light_stop = False
-        left_it = True
-        right_it = True
-        forward_it = True
-        # all_pass = False
+        
         if deadline>0:
-            if inputs['light'] == 'green':
-                light_stop = False
-                if waypoint == 'left':
-                    if inputs['oncoming']==None:
-                        left_it = False
-                if waypoint == 'right':
-                        right_it = False
-                if waypoint == 'forward':
-                        forward_it = False
-
-                # all_pass = (not light_stop) and (not (left_it or right_it or forward_it))
-                # o_l = (not left_it) and right_it and forward_it
-                # o_r = (not right_it) and left_it and forward_it
-                # o_f = (not forward_it) and left_it and right_it
-                # n_l = left_it and (not right_it) and (not forward_it)
-                # n_r = right_it and (not left_it) and (not forward_it)
-                # n_f = forward_it and (not right_it) and (not left_it)
-
-            else:
-                if waypoint != 'right':
-                    light_stop = True
-                else:
-                    if inputs['left']!='forward':
-                        right_it = False
-
-                # o_l = False
-                # o_r = False 
-                # o_f = False
-                # n_l = False
-                # n_r = False
-                # n_f = False
-                
-        # state = (light_stop, all_pass, o_l, o_r, o_f, n_l, n_r, n_f)
-        state = (light_stop, left_it, right_it, forward_it)
-
-        # if deadline>0:
-        # state = (waypoint, inputs['light'], inputs['oncoming'], inputs['left'], inputs['right'])
-        # else:
-        #     pass
-        #     state = (None, None, None, None)
-
+            state = (waypoint, inputs['light'], inputs['oncoming'], inputs['left'], inputs['right'])
+        else:
+            state = (None, None, None, None, None)
 
         return state
 
@@ -144,14 +103,8 @@ class LearningAgent(Agent):
         # When learning, check if the 'state' is not in the Q-table
         # If it is not, create a new dictionary for that state
         #   Then, for each action available, set the initial Q-value to 0.0
-        if self.learning:
-            if self.Q.has_key(state):
-                pass
-            else:
-                self.Q[state] = {None:0., 'forward':0., 'left':0., 'right':0.}
-        # actions = ['stop','forward', 'left', 'right']
-
-        
+        if self.learning and not self.Q.has_key(state):
+            self.Q[state] = {None:0., 'forward':0., 'left':0., 'right':0.}
         return
 
 
@@ -170,38 +123,19 @@ class LearningAgent(Agent):
         # When not learning, choose a random action
         # When learning, choose a random action with 'epsilon' probability
         #   Otherwise, choose an action with the highest Q-value for the current state
-
-        #  learning 
         if self.learning:
-            # state_action = self.Q[self.state]
-            # if self.epsilon < 0.5:
-                
-            #     action = random.choice(self.valid_actions)
-            # else:
-            #     mQ = self.get_maxQ(state) 
-            #     for k, v in self.Q[state].items():
-            #         if v == mQ:
-            #             action = k
-            #     # max(self.Q[self.state].iterkeys(), key=lambda k: self.Q[self.state][k])
-            
-                
-            action_list = [random.choice(self.valid_actions)]
-            
-            mQ = self.get_maxQ(state) 
-            for k, v in self.Q[state].items():
-                if v == mQ:
-                    action_list.append(k)
-            prob_list = [self.epsilon, 1-self.epsilon]
-            cum = 0
-            x_c = random.uniform(0, 1)
-            for item, item_prob in zip(action_list, prob_list):
-                cum += item_prob
-                if x_c < cum:
-                    action = item
+            if random.uniform(0,1) < self.epsilon:
+                action = random.choice(self.valid_actions)
+            else:
+                action_list = [ ]
+                mQ = self.get_maxQ(state) 
+                for k, v in self.Q[state].items():
+                    if v == mQ:
+                        action_list.append(k)
+                action = random.choice(action_list)
         #  not learning 
         else:
             action = random.choice(self.valid_actions)
-
         return action
 
 
@@ -217,7 +151,7 @@ class LearningAgent(Agent):
         #   Use only the learning rate 'alpha' (do not use the discount factor 'gamma')
         if self.learning:
             old_q = self.Q[state][action]
-            pred_q = reward + self.epsilon*old_q
+            pred_q = reward + 0 * old_q
             self.Q[state][action] += self.alpha * (pred_q-old_q)
 
         return
@@ -247,7 +181,7 @@ def run():
     #   verbose     - set to True to display additional output from the simulation
     #   num_dummies - discrete number of dummy agents in the environment, default is 100
     #   grid_size   - discrete number of intersections (columns, rows), default is (8, 6)
-    env = Environment(verbose=False)
+    env = Environment()
     
     ##############
     # Create the driving agent
@@ -255,7 +189,7 @@ def run():
     #   learning   - set to True to force the driving agent to use Q-learning
     #    * epsilon - continuous value for the exploration factor, default is 1
     #    * alpha   - continuous value for the learning rate, default is 0.5
-    agent = env.create_agent(LearningAgent, learning=True)
+    agent = env.create_agent(LearningAgent, learning=True, alpha=.5)
     
     ##############
     # Follow the driving agent
@@ -276,8 +210,8 @@ def run():
     # Run the simulator
     # Flags:
     #   tolerance  - epsilon tolerance before beginning testing, default is 0.05 
-    #   n_test     - discrete number of testing trials to perform, default is 10
-    sim.run(n_test=100, tolerance=0.05)
+    #   n_test     - discrete number of testing trials to perform, default is 0
+    sim.run(n_test=100, tolerance=.0003)
 
 
 if __name__ == '__main__':
