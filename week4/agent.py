@@ -24,6 +24,7 @@ class LearningAgent(Agent):
         ###########
         # Set any additional class parameters as needed
         self.cnt = 1
+        
 
     def reset(self, destination=None, testing=False):
         """ The reset function is called at the beginning of each trial.
@@ -42,12 +43,12 @@ class LearningAgent(Agent):
         # linear 
         # self.epsilon -= 0.05
         # e^t
-        # self.epsilon = math.exp(-.15*self.cnt) # 
+        # self.epsilon = math.exp(-.08*self.cnt) # 
         # 1/t^2
         # self.epsilon = 100 * math.pow((1/self.cnt), 2)  # 
         # a^t
-        self.epsilon = math.pow(.99, self.cnt) # 
-       
+        self.epsilon = math.pow(.991, self.cnt) # 
+        # self.alpha = 1 - math.pow((1/self.cnt), 2)
         # Update additional class parameters as needed
         self.cnt += 1
         # If 'testing' is True, set epsilon and alpha to 0
@@ -72,10 +73,10 @@ class LearningAgent(Agent):
         ###########
         # Set 'state' as a tuple of relevant data for the agent        
         
-        if deadline>0:
-            state = (waypoint, inputs['light'], inputs['oncoming'], inputs['left'], inputs['right'])
-        else:
-            state = (None, None, None, None, None)
+        
+        state = (waypoint, inputs['light'], inputs['oncoming'], inputs['left'], inputs['right'])
+    
+        
 
         return state
 
@@ -129,10 +130,12 @@ class LearningAgent(Agent):
             else:
                 action_list = [ ]
                 mQ = self.get_maxQ(state) 
-                for k, v in self.Q[state].items():
-                    if v == mQ:
-                        action_list.append(k)
-                action = random.choice(action_list)
+                # for k, v in self.Q[state].items():
+                #     if v == mQ:
+                #         action_list.append(k)
+                # action = random.choice(action_list)
+                max_keys = [k for k, v in self.Q[state].items() if v==mQ]
+                action = random.choice(max_keys)
         #  not learning 
         else:
             action = random.choice(self.valid_actions)
@@ -151,7 +154,7 @@ class LearningAgent(Agent):
         #   Use only the learning rate 'alpha' (do not use the discount factor 'gamma')
         if self.learning:
             old_q = self.Q[state][action]
-            pred_q = reward + 0 * old_q
+            pred_q = reward
             self.Q[state][action] += self.alpha * (pred_q-old_q)
 
         return
@@ -211,7 +214,7 @@ def run():
     # Flags:
     #   tolerance  - epsilon tolerance before beginning testing, default is 0.05 
     #   n_test     - discrete number of testing trials to perform, default is 0
-    sim.run(n_test=100, tolerance=.0003)
+    sim.run(n_test=20, tolerance=.0003)  # 100 .0003
 
 
 if __name__ == '__main__':
