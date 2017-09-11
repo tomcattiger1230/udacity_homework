@@ -47,8 +47,13 @@ class LearningAgent(Agent):
         # 1/t^2
         # self.epsilon = 100 * math.pow((1/self.cnt), 2)  # 
         # a^t
-        self.epsilon = math.pow(.991, self.cnt) # 
+        # self.epsilon = math.pow(.991, self.cnt) # 
         # self.alpha = 1 - math.pow((1/self.cnt), 2)
+        # cos
+        if self.cnt < 300:
+        	self.epsilon = .6 + .2 * math.cos(.6 * self.cnt)
+        else:
+        	self.epsilon = math.pow(.991, self.cnt)
         # Update additional class parameters as needed
         self.cnt += 1
         # If 'testing' is True, set epsilon and alpha to 0
