@@ -12152,16 +12152,18 @@ height=250
     <span class="n">x_deep</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
     <span class="n">normalized_x</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">deep</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">x_deep</span><span class="p">):</span>
-        <span class="n">min_x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">x</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">deep</span><span class="p">])</span>
-        <span class="n">max_x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">x</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">deep</span><span class="p">])</span>
-        <span class="n">diff</span> <span class="o">=</span> <span class="n">max_x</span> <span class="o">-</span> <span class="n">min_x</span>
-        
-        <span class="k">for</span> <span class="n">m</span><span class="p">,</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">x_width</span><span class="p">),</span> <span class="nb">range</span><span class="p">(</span><span class="n">x_length</span><span class="p">)):</span>
-            <span class="k">if</span> <span class="n">diff</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
-                <span class="n">normalized_x</span><span class="p">[</span><span class="n">m</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">deep</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">m</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">deep</span><span class="p">]</span> <span class="o">-</span> <span class="n">min_x</span><span class="p">)</span> <span class="o">/</span> <span class="n">diff</span>
-            <span class="k">else</span><span class="p">:</span>
-                 <span class="n">normalized_x</span><span class="p">[</span><span class="n">m</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">deep</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="c1">#     normalized_x = normalize(x)</span>
+<span class="c1">#         min_x = np.min(x[:, :, deep])</span>
+<span class="c1">#         max_x = np.max(x[:, :, deep])</span>
+<span class="c1">#         diff = max_x - min_x</span>
+        <span class="n">normalized_x</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">deep</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">deep</span><span class="p">]</span><span class="o">-</span>
+                                    <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">x</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">deep</span><span class="p">]))</span><span class="o">/</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">x</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">deep</span><span class="p">])</span>
+                                                            <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">x</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">deep</span><span class="p">]))</span>
+<span class="c1">#         for m, n in zip(range(x_width), range(x_length)):</span>
+<span class="c1">#             if diff != 0:</span>
+<span class="c1">#                 normalized_x[m, n, deep] = (x[m, n, deep] - min_x) / diff</span>
+<span class="c1">#             else:</span>
+<span class="c1">#                  normalized_x[m, n, deep] = 0</span>
+
     <span class="k">return</span> <span class="n">normalized_x</span>
 
 
@@ -12218,7 +12220,7 @@ height=250
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[24]:</div>
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="k">import</span> <span class="n">preprocessing</span>
@@ -12303,7 +12305,7 @@ height=250
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[25]:</div>
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
@@ -12338,7 +12340,7 @@ height=250
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
@@ -12431,7 +12433,7 @@ height=250
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
@@ -12556,7 +12558,7 @@ Keep Prob Tests Passed.
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">conv2d_maxpool</span><span class="p">(</span><span class="n">x_tensor</span><span class="p">,</span> <span class="n">conv_num_outputs</span><span class="p">,</span> <span class="n">conv_ksize</span><span class="p">,</span> <span class="n">conv_strides</span><span class="p">,</span> <span class="n">pool_ksize</span><span class="p">,</span> <span class="n">pool_strides</span><span class="p">):</span>
@@ -12573,9 +12575,9 @@ Keep Prob Tests Passed.
     <span class="c1"># TODO: Implement Function</span>
     <span class="n">t_channel</span> <span class="o">=</span> <span class="n">x_tensor</span><span class="o">.</span><span class="n">get_shape</span><span class="p">()</span><span class="o">.</span><span class="n">as_list</span><span class="p">()[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
     <span class="c1"># weight variable </span>
-    <span class="n">t_weight</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">random_normal</span><span class="p">([</span><span class="o">*</span><span class="n">conv_ksize</span><span class="p">,</span> <span class="n">t_channel</span><span class="p">,</span> <span class="n">conv_num_outputs</span><span class="p">]))</span>
+    <span class="n">t_weight</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">random_normal</span><span class="p">([</span><span class="o">*</span><span class="n">conv_ksize</span><span class="p">,</span> <span class="n">t_channel</span><span class="p">,</span> <span class="n">conv_num_outputs</span><span class="p">],</span>  <span class="n">stddev</span><span class="o">=.</span><span class="mi">05</span><span class="p">))</span>
     <span class="c1"># bias variable </span>
-    <span class="n">t_bias</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">random_normal</span><span class="p">([</span><span class="n">conv_num_outputs</span><span class="p">]))</span>
+    <span class="n">t_bias</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="n">conv_num_outputs</span><span class="p">]))</span>
     <span class="c1"># convolution layer</span>
     <span class="n">t_cov</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">conv2d</span><span class="p">(</span><span class="nb">input</span><span class="o">=</span><span class="n">x_tensor</span><span class="p">,</span> <span class="nb">filter</span><span class="o">=</span><span class="n">t_weight</span><span class="p">,</span> <span class="n">strides</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="o">*</span><span class="n">conv_strides</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">padding</span><span class="o">=</span><span class="s1">&#39;SAME&#39;</span><span class="p">)</span>
     <span class="c1"># add bias term</span>
@@ -12638,7 +12640,7 @@ Keep Prob Tests Passed.
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">flatten</span><span class="p">(</span><span class="n">x_tensor</span><span class="p">):</span>
@@ -12706,7 +12708,7 @@ Keep Prob Tests Passed.
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="prompt input_prompt">In&nbsp;[11]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">fully_conn</span><span class="p">(</span><span class="n">x_tensor</span><span class="p">,</span> <span class="n">num_outputs</span><span class="p">):</span>
@@ -12773,7 +12775,7 @@ Keep Prob Tests Passed.
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="prompt input_prompt">In&nbsp;[12]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">output</span><span class="p">(</span><span class="n">x_tensor</span><span class="p">,</span> <span class="n">num_outputs</span><span class="p">):</span>
@@ -12784,7 +12786,7 @@ Keep Prob Tests Passed.
 <span class="sd">    : return: A 2-D tensor where the second dimension is num_outputs.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># TODO: Implement Function</span>
-    <span class="n">output</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">contrib</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">fully_connected</span><span class="p">(</span><span class="n">x_tensor</span><span class="p">,</span> <span class="n">num_outputs</span><span class="p">)</span>
+    <span class="n">output</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">contrib</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">fully_connected</span><span class="p">(</span><span class="n">x_tensor</span><span class="p">,</span> <span class="n">num_outputs</span><span class="p">,</span> <span class="n">activation_fn</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">output</span>
 
 
@@ -12853,7 +12855,7 @@ Keep Prob Tests Passed.
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="prompt input_prompt">In&nbsp;[46]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">conv_net</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">keep_prob</span><span class="p">):</span>
@@ -12867,15 +12869,15 @@ Keep Prob Tests Passed.
     <span class="c1">#    Play around with different number of outputs, kernel size and stride</span>
     <span class="c1"># Function Definition from Above:</span>
     <span class="c1">#    conv2d_maxpool(x_tensor, conv_num_outputs, conv_ksize, conv_strides, pool_ksize, pool_strides)</span>
-    <span class="n">x_out</span> <span class="o">=</span> <span class="n">conv2d_maxpool</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">conv_num_outputs</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span> <span class="n">conv_ksize</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> 
-                          <span class="n">conv_strides</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">pool_ksize</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span> <span class="n">pool_strides</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
-    <span class="n">x_out</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">dropout</span><span class="p">(</span><span class="n">x_out</span><span class="p">,</span> <span class="n">keep_prob</span><span class="p">)</span>
-    <span class="n">x_out</span> <span class="o">=</span> <span class="n">conv2d_maxpool</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">conv_num_outputs</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span> <span class="n">conv_ksize</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> 
-                          <span class="n">conv_strides</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">pool_ksize</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span> <span class="n">pool_strides</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
-    <span class="n">x_out</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">dropout</span><span class="p">(</span><span class="n">x_out</span><span class="p">,</span> <span class="n">keep_prob</span><span class="p">)</span>
+    <span class="n">x_out</span> <span class="o">=</span> <span class="n">conv2d_maxpool</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">conv_num_outputs</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">conv_ksize</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> 
+                          <span class="n">conv_strides</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">pool_ksize</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span> <span class="n">pool_strides</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
+<span class="c1">#     x_out = tf.nn.dropout(x_out, keep_prob)</span>
     <span class="n">x_out</span> <span class="o">=</span> <span class="n">conv2d_maxpool</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">conv_num_outputs</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span> <span class="n">conv_ksize</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> 
-                          <span class="n">conv_strides</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">pool_ksize</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span> <span class="n">pool_strides</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
-    <span class="n">x_out</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">dropout</span><span class="p">(</span><span class="n">x_out</span><span class="p">,</span> <span class="n">keep_prob</span><span class="p">)</span>
+                          <span class="n">conv_strides</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">pool_ksize</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span> <span class="n">pool_strides</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
+<span class="c1">#     x_out = tf.nn.dropout(x_out, keep_prob)</span>
+    <span class="n">x_out</span> <span class="o">=</span> <span class="n">conv2d_maxpool</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">conv_num_outputs</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span> <span class="n">conv_ksize</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> 
+                          <span class="n">conv_strides</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">pool_ksize</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span> <span class="n">pool_strides</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
+<span class="c1">#     x_out = tf.nn.dropout(x_out, keep_prob)</span>
 
     <span class="c1"># TODO: Apply a Flatten Layer</span>
     <span class="c1"># Function Definition from Above:</span>
@@ -12886,8 +12888,10 @@ Keep Prob Tests Passed.
     <span class="c1">#    Play around with different number of outputs</span>
     <span class="c1"># Function Definition from Above:</span>
     <span class="c1">#   fully_conn(x_tensor, num_outputs)</span>
-    <span class="n">x_out</span> <span class="o">=</span> <span class="n">fully_conn</span><span class="p">(</span><span class="n">x_out</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
-    <span class="n">x_out</span> <span class="o">=</span> <span class="n">fully_conn</span><span class="p">(</span><span class="n">x_out</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
+    <span class="n">x_out</span> <span class="o">=</span> <span class="n">fully_conn</span><span class="p">(</span><span class="n">x_out</span><span class="p">,</span> <span class="mi">512</span><span class="p">)</span>
+    <span class="n">x_out</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">dropout</span><span class="p">(</span><span class="n">x_out</span><span class="p">,</span> <span class="n">keep_prob</span><span class="p">)</span>
+    <span class="n">x_out</span> <span class="o">=</span> <span class="n">fully_conn</span><span class="p">(</span><span class="n">x_out</span><span class="p">,</span> <span class="mi">256</span><span class="p">)</span>
+    <span class="n">x_out</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">dropout</span><span class="p">(</span><span class="n">x_out</span><span class="p">,</span> <span class="n">keep_prob</span><span class="p">)</span>
     
     <span class="c1"># TODO: Apply an Output Layer</span>
     <span class="c1">#    Set this to the number of classes</span>
@@ -12989,7 +12993,7 @@ Keep Prob Tests Passed.
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="prompt input_prompt">In&nbsp;[42]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">train_neural_network</span><span class="p">(</span><span class="n">session</span><span class="p">,</span> <span class="n">optimizer</span><span class="p">,</span> <span class="n">keep_probability</span><span class="p">,</span> <span class="n">feature_batch</span><span class="p">,</span> <span class="n">label_batch</span><span class="p">):</span>
@@ -13054,7 +13058,7 @@ Keep Prob Tests Passed.
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[9]:</div>
+<div class="prompt input_prompt">In&nbsp;[43]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">print_stats</span><span class="p">(</span><span class="n">session</span><span class="p">,</span> <span class="n">feature_batch</span><span class="p">,</span> <span class="n">label_batch</span><span class="p">,</span> <span class="n">cost</span><span class="p">,</span> <span class="n">accuracy</span><span class="p">):</span>
@@ -13072,7 +13076,7 @@ Keep Prob Tests Passed.
     <span class="n">t_acc</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">accuracy</span><span class="p">,</span> <span class="n">feed_dict</span><span class="o">=</span><span class="p">{</span><span class="n">x</span><span class="p">:</span> <span class="n">feature_batch</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">label_batch</span><span class="p">,</span> <span class="n">keep_prob</span><span class="p">:</span> <span class="mf">1.</span><span class="p">})</span>
     <span class="n">t_loss</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">cost</span><span class="p">,</span> <span class="n">feed_dict</span><span class="o">=</span><span class="p">{</span><span class="n">x</span><span class="p">:</span> <span class="n">feature_batch</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">label_batch</span><span class="p">,</span> <span class="n">keep_prob</span><span class="p">:</span> <span class="mf">1.</span><span class="p">})</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;train accuracy </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">t_acc</span><span class="p">))</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;train loss&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">t_loss</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;train loss </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">t_loss</span><span class="p">))</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;test accuracy </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">test_acc</span><span class="p">))</span>
 </pre></div>
 
@@ -13123,13 +13127,13 @@ Keep Prob Tests Passed.
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[10]:</div>
+<div class="prompt input_prompt">In&nbsp;[44]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># TODO: Tune Parameters</span>
 <span class="n">epochs</span> <span class="o">=</span> <span class="mi">100</span>
-<span class="n">batch_size</span> <span class="o">=</span> <span class="mi">128</span>
-<span class="n">keep_probability</span> <span class="o">=</span> <span class="o">.</span><span class="mi">5</span>
+<span class="n">batch_size</span> <span class="o">=</span> <span class="mi">256</span>
+<span class="n">keep_probability</span> <span class="o">=</span> <span class="o">.</span><span class="mi">7</span>
 </pre></div>
 
 </div>
@@ -13157,7 +13161,7 @@ Keep Prob Tests Passed.
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[11]:</div>
+<div class="prompt input_prompt">In&nbsp;[47]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
@@ -13192,306 +13196,306 @@ Keep Prob Tests Passed.
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Checking the Training on a Single Batch...
-Epoch  1, CIFAR-10 Batch 1:  train accuracy 0.10000000149011612
-train loss
-test accuracy 0.09780000150203705
-Epoch  2, CIFAR-10 Batch 1:  train accuracy 0.10000000149011612
-train loss
-test accuracy 0.09780000150203705
-Epoch  3, CIFAR-10 Batch 1:  train accuracy 0.10000000149011612
-train loss
-test accuracy 0.09780000150203705
-Epoch  4, CIFAR-10 Batch 1:  train accuracy 0.10000000149011612
-train loss
-test accuracy 0.09780000150203705
-Epoch  5, CIFAR-10 Batch 1:  train accuracy 0.10000000149011612
-train loss
-test accuracy 0.09780000150203705
-Epoch  6, CIFAR-10 Batch 1:  train accuracy 0.10000000149011612
-train loss
-test accuracy 0.09780000150203705
-Epoch  7, CIFAR-10 Batch 1:  train accuracy 0.10000000149011612
-train loss
-test accuracy 0.09780000150203705
-Epoch  8, CIFAR-10 Batch 1:  train accuracy 0.10000000149011612
-train loss
-test accuracy 0.09780000150203705
-Epoch  9, CIFAR-10 Batch 1:  train accuracy 0.10000000149011612
-train loss
-test accuracy 0.09780000150203705
-Epoch 10, CIFAR-10 Batch 1:  train accuracy 0.10000000149011612
-train loss
-test accuracy 0.09780000150203705
-Epoch 11, CIFAR-10 Batch 1:  train accuracy 0.10000000149011612
-train loss
-test accuracy 0.09780000150203705
-Epoch 12, CIFAR-10 Batch 1:  train accuracy 0.10000000149011612
-train loss
-test accuracy 0.09780000150203705
-Epoch 13, CIFAR-10 Batch 1:  train accuracy 0.10000000149011612
-train loss
-test accuracy 0.09780000150203705
-Epoch 14, CIFAR-10 Batch 1:  train accuracy 0.10000000149011612
-train loss
-test accuracy 0.09780000150203705
-Epoch 15, CIFAR-10 Batch 1:  train accuracy 0.10000000149011612
-train loss
-test accuracy 0.09780000150203705
-Epoch 16, CIFAR-10 Batch 1:  train accuracy 0.10000000149011612
-train loss
-test accuracy 0.09780000150203705
-Epoch 17, CIFAR-10 Batch 1:  train accuracy 0.10000000149011612
-train loss
-test accuracy 0.09780000150203705
-Epoch 18, CIFAR-10 Batch 1:  train accuracy 0.10000000149011612
-train loss
-test accuracy 0.09780000150203705
-Epoch 19, CIFAR-10 Batch 1:  train accuracy 0.10000000149011612
-train loss
-test accuracy 0.09780000150203705
-Epoch 20, CIFAR-10 Batch 1:  train accuracy 0.10000000149011612
-train loss
-test accuracy 0.09780000150203705
-Epoch 21, CIFAR-10 Batch 1:  train accuracy 0.10000000149011612
-train loss
-test accuracy 0.09780000150203705
-Epoch 22, CIFAR-10 Batch 1:  train accuracy 0.10000000149011612
-train loss
-test accuracy 0.09780000150203705
-Epoch 23, CIFAR-10 Batch 1:  train accuracy 0.10000000149011612
-train loss
-test accuracy 0.09780000150203705
-Epoch 24, CIFAR-10 Batch 1:  train accuracy 0.10000000149011612
-train loss
-test accuracy 0.09780000150203705
-Epoch 25, CIFAR-10 Batch 1:  train accuracy 0.10000000149011612
-train loss
-test accuracy 0.09780000150203705
-Epoch 26, CIFAR-10 Batch 1:  train accuracy 0.10000000149011612
-train loss
-test accuracy 0.09780000150203705
-Epoch 27, CIFAR-10 Batch 1:  train accuracy 0.10000000149011612
-train loss
-test accuracy 0.09780000150203705
-Epoch 28, CIFAR-10 Batch 1:  train accuracy 0.10000000149011612
-train loss
-test accuracy 0.09780000150203705
-Epoch 29, CIFAR-10 Batch 1:  train accuracy 0.10000000149011612
-train loss
-test accuracy 0.09780000150203705
-Epoch 30, CIFAR-10 Batch 1:  train accuracy 0.10000000149011612
-train loss
-test accuracy 0.09780000150203705
-Epoch 31, CIFAR-10 Batch 1:  train accuracy 0.10000000149011612
-train loss
-test accuracy 0.09780000150203705
-Epoch 32, CIFAR-10 Batch 1:  train accuracy 0.10000000149011612
-train loss
-test accuracy 0.09780000150203705
-Epoch 33, CIFAR-10 Batch 1:  train accuracy 0.10000000149011612
-train loss
-test accuracy 0.09780000150203705
-Epoch 34, CIFAR-10 Batch 1:  train accuracy 0.10000000149011612
-train loss
-test accuracy 0.09780000150203705
-Epoch 35, CIFAR-10 Batch 1:  train accuracy 0.10000000149011612
-train loss
-test accuracy 0.09780000150203705
-Epoch 36, CIFAR-10 Batch 1:  train accuracy 0.10000000149011612
-train loss
-test accuracy 0.09780000150203705
-Epoch 37, CIFAR-10 Batch 1:  train accuracy 0.10000000149011612
-train loss
-test accuracy 0.09780000150203705
-Epoch 38, CIFAR-10 Batch 1:  train accuracy 0.10000000149011612
-train loss
-test accuracy 0.09780000150203705
-Epoch 39, CIFAR-10 Batch 1:  train accuracy 0.10000000149011612
-train loss
-test accuracy 0.09780000150203705
-Epoch 40, CIFAR-10 Batch 1:  train accuracy 0.10000000149011612
-train loss
-test accuracy 0.09780000150203705
-Epoch 41, CIFAR-10 Batch 1:  train accuracy 0.10000000149011612
-train loss
-test accuracy 0.09780000150203705
-Epoch 42, CIFAR-10 Batch 1:  train accuracy 0.10000000149011612
-train loss
-test accuracy 0.09780000150203705
-Epoch 43, CIFAR-10 Batch 1:  train accuracy 0.10000000149011612
-train loss
-test accuracy 0.09780000150203705
-Epoch 44, CIFAR-10 Batch 1:  train accuracy 0.10000000149011612
-train loss
-test accuracy 0.09780000150203705
-Epoch 45, CIFAR-10 Batch 1:  train accuracy 0.10000000149011612
-train loss
-test accuracy 0.09780000150203705
-Epoch 46, CIFAR-10 Batch 1:  train accuracy 0.10000000149011612
-train loss
-test accuracy 0.09780000150203705
-Epoch 47, CIFAR-10 Batch 1:  train accuracy 0.10000000149011612
-train loss
-test accuracy 0.09780000150203705
-Epoch 48, CIFAR-10 Batch 1:  train accuracy 0.10000000149011612
-train loss
-test accuracy 0.09780000150203705
-Epoch 49, CIFAR-10 Batch 1:  train accuracy 0.10000000149011612
-train loss
-test accuracy 0.09780000150203705
-Epoch 50, CIFAR-10 Batch 1:  train accuracy 0.10000000149011612
-train loss
-test accuracy 0.09780000150203705
-Epoch 51, CIFAR-10 Batch 1:  train accuracy 0.10000000149011612
-train loss
-test accuracy 0.09780000150203705
-Epoch 52, CIFAR-10 Batch 1:  train accuracy 0.10000000149011612
-train loss
-test accuracy 0.09780000150203705
-Epoch 53, CIFAR-10 Batch 1:  train accuracy 0.10000000149011612
-train loss
-test accuracy 0.09780000150203705
-Epoch 54, CIFAR-10 Batch 1:  train accuracy 0.10000000149011612
-train loss
-test accuracy 0.09780000150203705
-Epoch 55, CIFAR-10 Batch 1:  train accuracy 0.10000000149011612
-train loss
-test accuracy 0.09780000150203705
-Epoch 56, CIFAR-10 Batch 1:  train accuracy 0.10000000149011612
-train loss
-test accuracy 0.09780000150203705
-Epoch 57, CIFAR-10 Batch 1:  train accuracy 0.10000000149011612
-train loss
-test accuracy 0.09780000150203705
-Epoch 58, CIFAR-10 Batch 1:  train accuracy 0.10000000149011612
-train loss
-test accuracy 0.09780000150203705
-Epoch 59, CIFAR-10 Batch 1:  train accuracy 0.10000000149011612
-train loss
-test accuracy 0.09780000150203705
-Epoch 60, CIFAR-10 Batch 1:  train accuracy 0.10000000149011612
-train loss
-test accuracy 0.09780000150203705
-Epoch 61, CIFAR-10 Batch 1:  train accuracy 0.10000000149011612
-train loss
-test accuracy 0.09780000150203705
-Epoch 62, CIFAR-10 Batch 1:  train accuracy 0.10000000149011612
-train loss
-test accuracy 0.09780000150203705
-Epoch 63, CIFAR-10 Batch 1:  train accuracy 0.10000000149011612
-train loss
-test accuracy 0.09780000150203705
-Epoch 64, CIFAR-10 Batch 1:  train accuracy 0.10000000149011612
-train loss
-test accuracy 0.09780000150203705
-Epoch 65, CIFAR-10 Batch 1:  train accuracy 0.10000000149011612
-train loss
-test accuracy 0.09780000150203705
-Epoch 66, CIFAR-10 Batch 1:  train accuracy 0.10000000149011612
-train loss
-test accuracy 0.09780000150203705
-Epoch 67, CIFAR-10 Batch 1:  train accuracy 0.10000000149011612
-train loss
-test accuracy 0.09780000150203705
-Epoch 68, CIFAR-10 Batch 1:  train accuracy 0.10000000149011612
-train loss
-test accuracy 0.09780000150203705
-Epoch 69, CIFAR-10 Batch 1:  train accuracy 0.10000000149011612
-train loss
-test accuracy 0.09780000150203705
-Epoch 70, CIFAR-10 Batch 1:  train accuracy 0.10000000149011612
-train loss
-test accuracy 0.09780000150203705
-Epoch 71, CIFAR-10 Batch 1:  train accuracy 0.10000000149011612
-train loss
-test accuracy 0.09780000150203705
-Epoch 72, CIFAR-10 Batch 1:  train accuracy 0.10000000149011612
-train loss
-test accuracy 0.09780000150203705
-Epoch 73, CIFAR-10 Batch 1:  train accuracy 0.10000000149011612
-train loss
-test accuracy 0.09780000150203705
-Epoch 74, CIFAR-10 Batch 1:  train accuracy 0.10000000149011612
-train loss
-test accuracy 0.09780000150203705
-Epoch 75, CIFAR-10 Batch 1:  train accuracy 0.10000000149011612
-train loss
-test accuracy 0.09780000150203705
-Epoch 76, CIFAR-10 Batch 1:  train accuracy 0.10000000149011612
-train loss
-test accuracy 0.09780000150203705
-Epoch 77, CIFAR-10 Batch 1:  train accuracy 0.10000000149011612
-train loss
-test accuracy 0.09780000150203705
-Epoch 78, CIFAR-10 Batch 1:  train accuracy 0.10000000149011612
-train loss
-test accuracy 0.09780000150203705
-Epoch 79, CIFAR-10 Batch 1:  train accuracy 0.10000000149011612
-train loss
-test accuracy 0.09780000150203705
-Epoch 80, CIFAR-10 Batch 1:  train accuracy 0.10000000149011612
-train loss
-test accuracy 0.09780000150203705
-Epoch 81, CIFAR-10 Batch 1:  train accuracy 0.10000000149011612
-train loss
-test accuracy 0.09780000150203705
-Epoch 82, CIFAR-10 Batch 1:  train accuracy 0.10000000149011612
-train loss
-test accuracy 0.09780000150203705
-Epoch 83, CIFAR-10 Batch 1:  train accuracy 0.10000000149011612
-train loss
-test accuracy 0.09780000150203705
-Epoch 84, CIFAR-10 Batch 1:  train accuracy 0.10000000149011612
-train loss
-test accuracy 0.09780000150203705
-Epoch 85, CIFAR-10 Batch 1:  train accuracy 0.10000000149011612
-train loss
-test accuracy 0.09780000150203705
-Epoch 86, CIFAR-10 Batch 1:  train accuracy 0.10000000149011612
-train loss
-test accuracy 0.09780000150203705
-Epoch 87, CIFAR-10 Batch 1:  train accuracy 0.10000000149011612
-train loss
-test accuracy 0.09780000150203705
-Epoch 88, CIFAR-10 Batch 1:  train accuracy 0.10000000149011612
-train loss
-test accuracy 0.09780000150203705
-Epoch 89, CIFAR-10 Batch 1:  train accuracy 0.10000000149011612
-train loss
-test accuracy 0.09779998660087585
-Epoch 90, CIFAR-10 Batch 1:  train accuracy 0.10000000149011612
-train loss
-test accuracy 0.09780000150203705
-Epoch 91, CIFAR-10 Batch 1:  train accuracy 0.10000000149011612
-train loss
-test accuracy 0.09780000150203705
-Epoch 92, CIFAR-10 Batch 1:  train accuracy 0.10000000149011612
-train loss
-test accuracy 0.09780000150203705
-Epoch 93, CIFAR-10 Batch 1:  train accuracy 0.10000000149011612
-train loss
-test accuracy 0.09780000150203705
-Epoch 94, CIFAR-10 Batch 1:  train accuracy 0.10000000149011612
-train loss
-test accuracy 0.09780000150203705
-Epoch 95, CIFAR-10 Batch 1:  train accuracy 0.10000000149011612
-train loss
-test accuracy 0.09780000150203705
-Epoch 96, CIFAR-10 Batch 1:  train accuracy 0.10000000149011612
-train loss
-test accuracy 0.09780000150203705
-Epoch 97, CIFAR-10 Batch 1:  train accuracy 0.10000000149011612
-train loss
-test accuracy 0.09780000150203705
-Epoch 98, CIFAR-10 Batch 1:  train accuracy 0.10000000149011612
-train loss
-test accuracy 0.09780000150203705
-Epoch 99, CIFAR-10 Batch 1:  train accuracy 0.10000000149011612
-train loss
-test accuracy 0.09780000150203705
-Epoch 100, CIFAR-10 Batch 1:  train accuracy 0.10000000149011612
-train loss
-test accuracy 0.09780000150203705
+Epoch  1, CIFAR-10 Batch 1:  train accuracy 0.3500000238418579
+train loss 1.8765056133270264
+test accuracy 0.37619996070861816
+Epoch  2, CIFAR-10 Batch 1:  train accuracy 0.5
+train loss 1.4709389209747314
+test accuracy 0.45959997177124023
+Epoch  3, CIFAR-10 Batch 1:  train accuracy 0.6500000357627869
+train loss 1.063171148300171
+test accuracy 0.481999933719635
+Epoch  4, CIFAR-10 Batch 1:  train accuracy 0.75
+train loss 0.8166333436965942
+test accuracy 0.49539995193481445
+Epoch  5, CIFAR-10 Batch 1:  train accuracy 0.800000011920929
+train loss 0.6254674196243286
+test accuracy 0.5273999571800232
+Epoch  6, CIFAR-10 Batch 1:  train accuracy 0.8500000238418579
+train loss 0.5201172828674316
+test accuracy 0.5247999429702759
+Epoch  7, CIFAR-10 Batch 1:  train accuracy 0.925000011920929
+train loss 0.33498382568359375
+test accuracy 0.5297999382019043
+Epoch  8, CIFAR-10 Batch 1:  train accuracy 0.949999988079071
+train loss 0.2386070191860199
+test accuracy 0.5463999509811401
+Epoch  9, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.15479829907417297
+test accuracy 0.5561999082565308
+Epoch 10, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.10003116726875305
+test accuracy 0.5671998858451843
+Epoch 11, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.08495879173278809
+test accuracy 0.5425999164581299
+Epoch 12, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.06124686822295189
+test accuracy 0.5333999395370483
+Epoch 13, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.04044801741838455
+test accuracy 0.5603998899459839
+Epoch 14, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.014177205041050911
+test accuracy 0.5683999061584473
+Epoch 15, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.015303149819374084
+test accuracy 0.5769999623298645
+Epoch 16, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.023823678493499756
+test accuracy 0.5473999381065369
+Epoch 17, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.020679643377661705
+test accuracy 0.5305999517440796
+Epoch 18, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.011187026277184486
+test accuracy 0.5509999394416809
+Epoch 19, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.010319646447896957
+test accuracy 0.5659998655319214
+Epoch 20, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.0054411510936915874
+test accuracy 0.5697999596595764
+Epoch 21, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.004033591598272324
+test accuracy 0.5623999238014221
+Epoch 22, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.005485928617417812
+test accuracy 0.5511999130249023
+Epoch 23, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.004442225210368633
+test accuracy 0.5547999143600464
+Epoch 24, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.0033687157556414604
+test accuracy 0.5539999008178711
+Epoch 25, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.0017922685947269201
+test accuracy 0.5559999346733093
+Epoch 26, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.00765304546803236
+test accuracy 0.5531999468803406
+Epoch 27, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.0045612105168402195
+test accuracy 0.5447999238967896
+Epoch 28, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.0007574162445962429
+test accuracy 0.5657999515533447
+Epoch 29, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.000650544767268002
+test accuracy 0.5579999685287476
+Epoch 30, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.00113456801045686
+test accuracy 0.5519999265670776
+Epoch 31, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.001647891360335052
+test accuracy 0.5493999123573303
+Epoch 32, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.0016057509928941727
+test accuracy 0.5529999136924744
+Epoch 33, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.0010078425984829664
+test accuracy 0.5529999732971191
+Epoch 34, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.001745476620271802
+test accuracy 0.5625999569892883
+Epoch 35, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.0016000709729269147
+test accuracy 0.5573998689651489
+Epoch 36, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.0003403358568903059
+test accuracy 0.5803999900817871
+Epoch 37, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.000179561524419114
+test accuracy 0.5791999101638794
+Epoch 38, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.0002002255932893604
+test accuracy 0.575999915599823
+Epoch 39, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.0003107117663603276
+test accuracy 0.5721998810768127
+Epoch 40, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.00011452800390543416
+test accuracy 0.5791999101638794
+Epoch 41, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 6.110547838034108e-05
+test accuracy 0.5789998769760132
+Epoch 42, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.000230672478210181
+test accuracy 0.5697999000549316
+Epoch 43, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 8.823063399177045e-05
+test accuracy 0.5747999548912048
+Epoch 44, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.00010149728768737987
+test accuracy 0.5825998783111572
+Epoch 45, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.00015777641965541989
+test accuracy 0.5719999074935913
+Epoch 46, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 8.062369306571782e-05
+test accuracy 0.5727999210357666
+Epoch 47, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 5.7700523029780015e-05
+test accuracy 0.5791999101638794
+Epoch 48, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 1.6897152818273753e-05
+test accuracy 0.5765998959541321
+Epoch 49, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 2.1775069399154745e-05
+test accuracy 0.5791999697685242
+Epoch 50, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 4.686018291977234e-05
+test accuracy 0.5767999291419983
+Epoch 51, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 1.8476559489499778e-05
+test accuracy 0.5691999197006226
+Epoch 52, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 5.6712047808105126e-05
+test accuracy 0.5761999487876892
+Epoch 53, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 4.6508026571245864e-05
+test accuracy 0.5713999271392822
+Epoch 54, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 4.6979290345916525e-05
+test accuracy 0.5765998959541321
+Epoch 55, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 4.6647161070723087e-05
+test accuracy 0.5775999426841736
+Epoch 56, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 2.853166552085895e-05
+test accuracy 0.5713999271392822
+Epoch 57, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.00012517994036898017
+test accuracy 0.5707999467849731
+Epoch 58, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 1.8536189600126818e-05
+test accuracy 0.5685999393463135
+Epoch 59, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 2.604503788461443e-05
+test accuracy 0.5773999094963074
+Epoch 60, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 5.693943239748478e-05
+test accuracy 0.5755999088287354
+Epoch 61, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 3.152002682327293e-05
+test accuracy 0.5701999068260193
+Epoch 62, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 3.6816134524997324e-05
+test accuracy 0.5643999576568604
+Epoch 63, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 5.8965961216017604e-05
+test accuracy 0.5701999068260193
+Epoch 64, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 6.16064717178233e-05
+test accuracy 0.5691999197006226
+Epoch 65, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 3.781216946663335e-05
+test accuracy 0.5645999312400818
+Epoch 66, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 3.99926102545578e-05
+test accuracy 0.5753999352455139
+Epoch 67, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 2.962540020234883e-05
+test accuracy 0.571199893951416
+Epoch 68, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 2.9483360776794143e-05
+test accuracy 0.5695998668670654
+Epoch 69, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 4.4958786020288244e-05
+test accuracy 0.5621999502182007
+Epoch 70, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 2.8824892069678754e-05
+test accuracy 0.5663999319076538
+Epoch 71, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 9.513578697806224e-05
+test accuracy 0.5631998777389526
+Epoch 72, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.00016439829778391868
+test accuracy 0.5740000009536743
+Epoch 73, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 8.839413203531876e-05
+test accuracy 0.5743998885154724
+Epoch 74, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.00013422527990769595
+test accuracy 0.569399893283844
+Epoch 75, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.00018674656166695058
+test accuracy 0.5559999346733093
+Epoch 76, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.0005513788782991469
+test accuracy 0.5663999319076538
+Epoch 77, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.0001033939333865419
+test accuracy 0.5647999048233032
+Epoch 78, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 6.981909973546863e-05
+test accuracy 0.5643999576568604
+Epoch 79, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.0003222106897737831
+test accuracy 0.5669999122619629
+Epoch 80, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.00011130847269669175
+test accuracy 0.5697999000549316
+Epoch 81, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 9.861058788374066e-05
+test accuracy 0.5621999502182007
+Epoch 82, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.00035979130188934505
+test accuracy 0.5623999238014221
+Epoch 83, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 2.4332714019692503e-05
+test accuracy 0.5687999725341797
+Epoch 84, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.00019804405746981502
+test accuracy 0.564799964427948
+Epoch 85, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.00015586393419653177
+test accuracy 0.5653999447822571
+Epoch 86, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.00018899273709394038
+test accuracy 0.5693999528884888
+Epoch 87, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 9.721900278236717e-05
+test accuracy 0.5709999203681946
+Epoch 88, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.0002709035761654377
+test accuracy 0.5669999122619629
+Epoch 89, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.00014446668501477689
+test accuracy 0.5695999264717102
+Epoch 90, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.00011647956125671044
+test accuracy 0.5677999258041382
+Epoch 91, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 1.9706621969817206e-05
+test accuracy 0.5653998851776123
+Epoch 92, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 2.248335295007564e-05
+test accuracy 0.5807998776435852
+Epoch 93, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 4.4625605369219556e-05
+test accuracy 0.575999915599823
+Epoch 94, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 6.620104250032455e-05
+test accuracy 0.5579999089241028
+Epoch 95, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 2.3225722543429583e-05
+test accuracy 0.5671999454498291
+Epoch 96, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 7.071954314596951e-06
+test accuracy 0.5739999413490295
+Epoch 97, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 1.1592738701438066e-05
+test accuracy 0.5709999203681946
+Epoch 98, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 5.763649824075401e-06
+test accuracy 0.5755998492240906
+Epoch 99, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 3.972637568949722e-05
+test accuracy 0.5673999786376953
+Epoch 100, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 6.043682333256584e-06
+test accuracy 0.5751999020576477
 </pre>
 </div>
 </div>
@@ -13520,7 +13524,7 @@ test accuracy 0.09780000150203705
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[72]:</div>
+<div class="prompt input_prompt">In&nbsp;[49]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
@@ -13563,156 +13567,1506 @@ test accuracy 0.09780000150203705
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Training...
-Epoch  1, CIFAR-10 Batch 1:  train accuracy 0.10000000149011612
-train loss
-test accuracy 0.09780000150203705
-Epoch  1, CIFAR-10 Batch 2:  train accuracy 0.05000000074505806
-train loss
-test accuracy 0.09780000150203705
-Epoch  1, CIFAR-10 Batch 3:  train accuracy 0.07500000298023224
-train loss
-test accuracy 0.09780000150203705
-Epoch  1, CIFAR-10 Batch 4:  train accuracy 0.10000000149011612
-train loss
-test accuracy 0.09780000150203705
-Epoch  1, CIFAR-10 Batch 5:  train accuracy 0.125
-train loss
-test accuracy 0.09780000150203705
-Epoch  2, CIFAR-10 Batch 1:  train accuracy 0.10000000149011612
-train loss
-test accuracy 0.09780000150203705
-Epoch  2, CIFAR-10 Batch 2:  train accuracy 0.05000000074505806
-train loss
-test accuracy 0.09780000150203705
-Epoch  2, CIFAR-10 Batch 3:  train accuracy 0.07500000298023224
-train loss
-test accuracy 0.09780000150203705
-Epoch  2, CIFAR-10 Batch 4:  train accuracy 0.10000000149011612
-train loss
-test accuracy 0.09780000150203705
-Epoch  2, CIFAR-10 Batch 5:  train accuracy 0.125
-train loss
-test accuracy 0.09780000150203705
-Epoch  3, CIFAR-10 Batch 1:  train accuracy 0.10000000149011612
-train loss
-test accuracy 0.09780000150203705
-Epoch  3, CIFAR-10 Batch 2:  train accuracy 0.05000000074505806
-train loss
-test accuracy 0.09780000150203705
-Epoch  3, CIFAR-10 Batch 3:  train accuracy 0.07500000298023224
-train loss
-test accuracy 0.09780000150203705
-Epoch  3, CIFAR-10 Batch 4:  train accuracy 0.10000000149011612
-train loss
-test accuracy 0.09780000150203705
-Epoch  3, CIFAR-10 Batch 5:  train accuracy 0.125
-train loss
-test accuracy 0.09780000150203705
-Epoch  4, CIFAR-10 Batch 1:  train accuracy 0.10000000149011612
-train loss
-test accuracy 0.09780000150203705
-Epoch  4, CIFAR-10 Batch 2:  train accuracy 0.05000000074505806
-train loss
-test accuracy 0.09780000150203705
-Epoch  4, CIFAR-10 Batch 3:  train accuracy 0.07500000298023224
-train loss
-test accuracy 0.09780000150203705
-Epoch  4, CIFAR-10 Batch 4:  train accuracy 0.10000000149011612
-train loss
-test accuracy 0.09780000150203705
-Epoch  4, CIFAR-10 Batch 5:  train accuracy 0.125
-train loss
-test accuracy 0.09780000150203705
-Epoch  5, CIFAR-10 Batch 1:  train accuracy 0.10000000149011612
-train loss
-test accuracy 0.09780000150203705
-Epoch  5, CIFAR-10 Batch 2:  train accuracy 0.05000000074505806
-train loss
-test accuracy 0.09780000150203705
-Epoch  5, CIFAR-10 Batch 3:  train accuracy 0.07500000298023224
-train loss
-test accuracy 0.09780000150203705
-Epoch  5, CIFAR-10 Batch 4:  train accuracy 0.10000000149011612
-train loss
-test accuracy 0.09780000150203705
-Epoch  5, CIFAR-10 Batch 5:  train accuracy 0.125
-train loss
-test accuracy 0.09780000150203705
-Epoch  6, CIFAR-10 Batch 1:  train accuracy 0.10000000149011612
-train loss
-test accuracy 0.09780000150203705
-Epoch  6, CIFAR-10 Batch 2:  train accuracy 0.05000000074505806
-train loss
-test accuracy 0.09780000150203705
-Epoch  6, CIFAR-10 Batch 3:  train accuracy 0.07500000298023224
-train loss
-test accuracy 0.09780000150203705
-Epoch  6, CIFAR-10 Batch 4:  train accuracy 0.10000000149011612
-train loss
-test accuracy 0.09780000150203705
-Epoch  6, CIFAR-10 Batch 5:  train accuracy 0.125
-train loss
-test accuracy 0.09780000150203705
-Epoch  7, CIFAR-10 Batch 1:  train accuracy 0.10000000149011612
-train loss
-test accuracy 0.09780000150203705
-Epoch  7, CIFAR-10 Batch 2:  train accuracy 0.05000000074505806
-train loss
-test accuracy 0.09780000150203705
-Epoch  7, CIFAR-10 Batch 3:  train accuracy 0.07500000298023224
-train loss
-test accuracy 0.09780000150203705
-Epoch  7, CIFAR-10 Batch 4:  train accuracy 0.10000000149011612
-train loss
-test accuracy 0.09780000150203705
-Epoch  7, CIFAR-10 Batch 5:  train accuracy 0.125
-train loss
-test accuracy 0.09780000150203705
-Epoch  8, CIFAR-10 Batch 1:  train accuracy 0.10000000149011612
-train loss
-test accuracy 0.09780000150203705
-Epoch  8, CIFAR-10 Batch 2:  train accuracy 0.05000000074505806
-train loss
-test accuracy 0.09780000150203705
-Epoch  8, CIFAR-10 Batch 3:  train accuracy 0.07500000298023224
-train loss
-test accuracy 0.09780000150203705
-Epoch  8, CIFAR-10 Batch 4:  train accuracy 0.10000000149011612
-train loss
-test accuracy 0.09780000150203705
-Epoch  8, CIFAR-10 Batch 5:  train accuracy 0.125
-train loss
-test accuracy 0.09780000150203705
-Epoch  9, CIFAR-10 Batch 1:  train accuracy 0.10000000149011612
-train loss
-test accuracy 0.09780000150203705
-Epoch  9, CIFAR-10 Batch 2:  train accuracy 0.05000000074505806
-train loss
-test accuracy 0.09780000150203705
-Epoch  9, CIFAR-10 Batch 3:  train accuracy 0.07500000298023224
-train loss
-test accuracy 0.09780000150203705
-Epoch  9, CIFAR-10 Batch 4:  train accuracy 0.10000000149011612
-train loss
-test accuracy 0.09780000150203705
-Epoch  9, CIFAR-10 Batch 5:  train accuracy 0.125
-train loss
-test accuracy 0.09780000150203705
-Epoch 10, CIFAR-10 Batch 1:  train accuracy 0.10000000149011612
-train loss
-test accuracy 0.09780000150203705
-Epoch 10, CIFAR-10 Batch 2:  train accuracy 0.05000000074505806
-train loss
-test accuracy 0.09780000150203705
-Epoch 10, CIFAR-10 Batch 3:  train accuracy 0.07500000298023224
-train loss
-test accuracy 0.09780000150203705
-Epoch 10, CIFAR-10 Batch 4:  train accuracy 0.10000000149011612
-train loss
-test accuracy 0.09780000150203705
-Epoch 10, CIFAR-10 Batch 5:  train accuracy 0.125
-train loss
-test accuracy 0.09780000150203705
+Epoch  1, CIFAR-10 Batch 1:  train accuracy 0.3499999940395355
+train loss 2.013101816177368
+test accuracy 0.329399973154068
+Epoch  1, CIFAR-10 Batch 2:  train accuracy 0.5
+train loss 1.3964437246322632
+test accuracy 0.448199987411499
+Epoch  1, CIFAR-10 Batch 3:  train accuracy 0.5249999761581421
+train loss 1.2762261629104614
+test accuracy 0.4755999743938446
+Epoch  1, CIFAR-10 Batch 4:  train accuracy 0.5999999642372131
+train loss 1.3671574592590332
+test accuracy 0.5233999490737915
+Epoch  1, CIFAR-10 Batch 5:  train accuracy 0.5
+train loss 1.37180757522583
+test accuracy 0.5201999545097351
+Epoch  2, CIFAR-10 Batch 1:  train accuracy 0.6000000238418579
+train loss 1.2448468208312988
+test accuracy 0.5401999950408936
+Epoch  2, CIFAR-10 Batch 2:  train accuracy 0.625
+train loss 0.9640026092529297
+test accuracy 0.5171999931335449
+Epoch  2, CIFAR-10 Batch 3:  train accuracy 0.7000000476837158
+train loss 0.8198767304420471
+test accuracy 0.5487999320030212
+Epoch  2, CIFAR-10 Batch 4:  train accuracy 0.7250000238418579
+train loss 0.9278361797332764
+test accuracy 0.5765998959541321
+Epoch  2, CIFAR-10 Batch 5:  train accuracy 0.7000000476837158
+train loss 0.8886675834655762
+test accuracy 0.5933998823165894
+Epoch  3, CIFAR-10 Batch 1:  train accuracy 0.8000000715255737
+train loss 0.8492892980575562
+test accuracy 0.5923998951911926
+Epoch  3, CIFAR-10 Batch 2:  train accuracy 0.75
+train loss 0.6136739253997803
+test accuracy 0.5957999229431152
+Epoch  3, CIFAR-10 Batch 3:  train accuracy 0.8499999642372131
+train loss 0.5145429372787476
+test accuracy 0.6035999059677124
+Epoch  3, CIFAR-10 Batch 4:  train accuracy 0.7749999761581421
+train loss 0.6842017769813538
+test accuracy 0.6065999269485474
+Epoch  3, CIFAR-10 Batch 5:  train accuracy 0.8250000476837158
+train loss 0.5921075344085693
+test accuracy 0.5973999500274658
+Epoch  4, CIFAR-10 Batch 1:  train accuracy 0.7749999761581421
+train loss 0.6485859155654907
+test accuracy 0.6271999478340149
+Epoch  4, CIFAR-10 Batch 2:  train accuracy 0.9249999523162842
+train loss 0.40680041909217834
+test accuracy 0.6201999187469482
+Epoch  4, CIFAR-10 Batch 3:  train accuracy 0.9749999642372131
+train loss 0.3720894455909729
+test accuracy 0.6095999479293823
+Epoch  4, CIFAR-10 Batch 4:  train accuracy 0.925000011920929
+train loss 0.43380898237228394
+test accuracy 0.6239998936653137
+Epoch  4, CIFAR-10 Batch 5:  train accuracy 0.9749999642372131
+train loss 0.3362625539302826
+test accuracy 0.6053999662399292
+Epoch  5, CIFAR-10 Batch 1:  train accuracy 0.8250000476837158
+train loss 0.46916091442108154
+test accuracy 0.6383998394012451
+Epoch  5, CIFAR-10 Batch 2:  train accuracy 0.9750000238418579
+train loss 0.27170735597610474
+test accuracy 0.6309998631477356
+Epoch  5, CIFAR-10 Batch 3:  train accuracy 1.0
+train loss 0.23015205562114716
+test accuracy 0.6251999139785767
+Epoch  5, CIFAR-10 Batch 4:  train accuracy 0.925000011920929
+train loss 0.32209375500679016
+test accuracy 0.6355999708175659
+Epoch  5, CIFAR-10 Batch 5:  train accuracy 1.0
+train loss 0.24809077382087708
+test accuracy 0.6291999220848083
+Epoch  6, CIFAR-10 Batch 1:  train accuracy 0.8750000596046448
+train loss 0.37613290548324585
+test accuracy 0.6269998550415039
+Epoch  6, CIFAR-10 Batch 2:  train accuracy 0.9750000238418579
+train loss 0.20266371965408325
+test accuracy 0.6419998407363892
+Epoch  6, CIFAR-10 Batch 3:  train accuracy 0.9749999642372131
+train loss 0.16197875142097473
+test accuracy 0.6501998901367188
+Epoch  6, CIFAR-10 Batch 4:  train accuracy 0.949999988079071
+train loss 0.1974635273218155
+test accuracy 0.6499999165534973
+Epoch  6, CIFAR-10 Batch 5:  train accuracy 1.0
+train loss 0.1717328280210495
+test accuracy 0.6561999320983887
+Epoch  7, CIFAR-10 Batch 1:  train accuracy 0.949999988079071
+train loss 0.25000378489494324
+test accuracy 0.6313998699188232
+Epoch  7, CIFAR-10 Batch 2:  train accuracy 1.0
+train loss 0.1154361367225647
+test accuracy 0.6447999477386475
+Epoch  7, CIFAR-10 Batch 3:  train accuracy 1.0
+train loss 0.13119858503341675
+test accuracy 0.6461998820304871
+Epoch  7, CIFAR-10 Batch 4:  train accuracy 1.0
+train loss 0.11874883621931076
+test accuracy 0.66159987449646
+Epoch  7, CIFAR-10 Batch 5:  train accuracy 1.0
+train loss 0.11038292944431305
+test accuracy 0.6571999192237854
+Epoch  8, CIFAR-10 Batch 1:  train accuracy 0.9749999642372131
+train loss 0.15883353352546692
+test accuracy 0.6531999111175537
+Epoch  8, CIFAR-10 Batch 2:  train accuracy 1.0
+train loss 0.0968414694070816
+test accuracy 0.6525998115539551
+Epoch  8, CIFAR-10 Batch 3:  train accuracy 1.0
+train loss 0.09907199442386627
+test accuracy 0.642599880695343
+Epoch  8, CIFAR-10 Batch 4:  train accuracy 1.0
+train loss 0.11259111762046814
+test accuracy 0.6401998996734619
+Epoch  8, CIFAR-10 Batch 5:  train accuracy 1.0
+train loss 0.07791543006896973
+test accuracy 0.6531999111175537
+Epoch  9, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.10321244597434998
+test accuracy 0.6569998264312744
+Epoch  9, CIFAR-10 Batch 2:  train accuracy 1.0
+train loss 0.057745203375816345
+test accuracy 0.6603999137878418
+Epoch  9, CIFAR-10 Batch 3:  train accuracy 1.0
+train loss 0.06535688787698746
+test accuracy 0.6515998840332031
+Epoch  9, CIFAR-10 Batch 4:  train accuracy 1.0
+train loss 0.06323353201150894
+test accuracy 0.6403998136520386
+Epoch  9, CIFAR-10 Batch 5:  train accuracy 1.0
+train loss 0.06683459132909775
+test accuracy 0.6513999104499817
+Epoch 10, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.11297976970672607
+test accuracy 0.653999924659729
+Epoch 10, CIFAR-10 Batch 2:  train accuracy 1.0
+train loss 0.04798627644777298
+test accuracy 0.6571998596191406
+Epoch 10, CIFAR-10 Batch 3:  train accuracy 1.0
+train loss 0.06604139506816864
+test accuracy 0.643799901008606
+Epoch 10, CIFAR-10 Batch 4:  train accuracy 1.0
+train loss 0.03963671624660492
+test accuracy 0.6541998982429504
+Epoch 10, CIFAR-10 Batch 5:  train accuracy 1.0
+train loss 0.034180209040641785
+test accuracy 0.6587998867034912
+Epoch 11, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.05624690651893616
+test accuracy 0.6489999294281006
+Epoch 11, CIFAR-10 Batch 2:  train accuracy 1.0
+train loss 0.036830659955739975
+test accuracy 0.6409999132156372
+Epoch 11, CIFAR-10 Batch 3:  train accuracy 1.0
+train loss 0.03587348386645317
+test accuracy 0.6315999031066895
+Epoch 11, CIFAR-10 Batch 4:  train accuracy 1.0
+train loss 0.03837435692548752
+test accuracy 0.6559998989105225
+Epoch 11, CIFAR-10 Batch 5:  train accuracy 1.0
+train loss 0.027443673461675644
+test accuracy 0.6599998474121094
+Epoch 12, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.04029766097664833
+test accuracy 0.6389999389648438
+Epoch 12, CIFAR-10 Batch 2:  train accuracy 1.0
+train loss 0.0194692462682724
+test accuracy 0.6613998413085938
+Epoch 12, CIFAR-10 Batch 3:  train accuracy 1.0
+train loss 0.02785627916455269
+test accuracy 0.650999903678894
+Epoch 12, CIFAR-10 Batch 4:  train accuracy 1.0
+train loss 0.03710843622684479
+test accuracy 0.655799925327301
+Epoch 12, CIFAR-10 Batch 5:  train accuracy 1.0
+train loss 0.01859133131802082
+test accuracy 0.6567999124526978
+Epoch 13, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.04775993525981903
+test accuracy 0.640799880027771
+Epoch 13, CIFAR-10 Batch 2:  train accuracy 1.0
+train loss 0.01624065823853016
+test accuracy 0.6649999022483826
+Epoch 13, CIFAR-10 Batch 3:  train accuracy 1.0
+train loss 0.020507339388132095
+test accuracy 0.6407999396324158
+Epoch 13, CIFAR-10 Batch 4:  train accuracy 1.0
+train loss 0.031467244029045105
+test accuracy 0.6451998949050903
+Epoch 13, CIFAR-10 Batch 5:  train accuracy 1.0
+train loss 0.017770640552043915
+test accuracy 0.656799852848053
+Epoch 14, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.02825304865837097
+test accuracy 0.658599853515625
+Epoch 14, CIFAR-10 Batch 2:  train accuracy 1.0
+train loss 0.010959472507238388
+test accuracy 0.6611999273300171
+Epoch 14, CIFAR-10 Batch 3:  train accuracy 1.0
+train loss 0.016399968415498734
+test accuracy 0.6427998542785645
+Epoch 14, CIFAR-10 Batch 4:  train accuracy 1.0
+train loss 0.017700690776109695
+test accuracy 0.6627998948097229
+Epoch 14, CIFAR-10 Batch 5:  train accuracy 1.0
+train loss 0.008884778246283531
+test accuracy 0.662199854850769
+Epoch 15, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.024615369737148285
+test accuracy 0.6571999788284302
+Epoch 15, CIFAR-10 Batch 2:  train accuracy 1.0
+train loss 0.00946406926959753
+test accuracy 0.6567999124526978
+Epoch 15, CIFAR-10 Batch 3:  train accuracy 1.0
+train loss 0.009340022690594196
+test accuracy 0.6381999254226685
+Epoch 15, CIFAR-10 Batch 4:  train accuracy 1.0
+train loss 0.013911405578255653
+test accuracy 0.6501998901367188
+Epoch 15, CIFAR-10 Batch 5:  train accuracy 1.0
+train loss 0.007064934819936752
+test accuracy 0.6585999727249146
+Epoch 16, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.014375043101608753
+test accuracy 0.6631999015808105
+Epoch 16, CIFAR-10 Batch 2:  train accuracy 1.0
+train loss 0.005458144936710596
+test accuracy 0.6497998833656311
+Epoch 16, CIFAR-10 Batch 3:  train accuracy 1.0
+train loss 0.00621779402717948
+test accuracy 0.6627998352050781
+Epoch 16, CIFAR-10 Batch 4:  train accuracy 1.0
+train loss 0.009449664503335953
+test accuracy 0.6641998291015625
+Epoch 16, CIFAR-10 Batch 5:  train accuracy 1.0
+train loss 0.010626755654811859
+test accuracy 0.6559998393058777
+Epoch 17, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.00821622647345066
+test accuracy 0.654999852180481
+Epoch 17, CIFAR-10 Batch 2:  train accuracy 1.0
+train loss 0.007294063922017813
+test accuracy 0.6433998942375183
+Epoch 17, CIFAR-10 Batch 3:  train accuracy 1.0
+train loss 0.006744678132236004
+test accuracy 0.6565999388694763
+Epoch 17, CIFAR-10 Batch 4:  train accuracy 1.0
+train loss 0.007307758089154959
+test accuracy 0.6619998812675476
+Epoch 17, CIFAR-10 Batch 5:  train accuracy 1.0
+train loss 0.004969957750290632
+test accuracy 0.6541998982429504
+Epoch 18, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.009366597980260849
+test accuracy 0.6523998975753784
+Epoch 18, CIFAR-10 Batch 2:  train accuracy 1.0
+train loss 0.0035674457903951406
+test accuracy 0.6475999355316162
+Epoch 18, CIFAR-10 Batch 3:  train accuracy 1.0
+train loss 0.005413738079369068
+test accuracy 0.6523998975753784
+Epoch 18, CIFAR-10 Batch 4:  train accuracy 1.0
+train loss 0.008652358315885067
+test accuracy 0.6447998881340027
+Epoch 18, CIFAR-10 Batch 5:  train accuracy 1.0
+train loss 0.0043601179495453835
+test accuracy 0.6591998338699341
+Epoch 19, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.009129831567406654
+test accuracy 0.6585999131202698
+Epoch 19, CIFAR-10 Batch 2:  train accuracy 1.0
+train loss 0.002241423586383462
+test accuracy 0.6523998975753784
+Epoch 19, CIFAR-10 Batch 3:  train accuracy 1.0
+train loss 0.007381260860711336
+test accuracy 0.650399923324585
+Epoch 19, CIFAR-10 Batch 4:  train accuracy 1.0
+train loss 0.006929856725037098
+test accuracy 0.6489998698234558
+Epoch 19, CIFAR-10 Batch 5:  train accuracy 1.0
+train loss 0.009166489355266094
+test accuracy 0.6567999124526978
+Epoch 20, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.006944351829588413
+test accuracy 0.6565998792648315
+Epoch 20, CIFAR-10 Batch 2:  train accuracy 1.0
+train loss 0.0019014158751815557
+test accuracy 0.6447998881340027
+Epoch 20, CIFAR-10 Batch 3:  train accuracy 1.0
+train loss 0.0024359868839383125
+test accuracy 0.6513999104499817
+Epoch 20, CIFAR-10 Batch 4:  train accuracy 1.0
+train loss 0.004899090621620417
+test accuracy 0.6605998277664185
+Epoch 20, CIFAR-10 Batch 5:  train accuracy 1.0
+train loss 0.0042781587690114975
+test accuracy 0.6547998785972595
+Epoch 21, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.008028099313378334
+test accuracy 0.6477999091148376
+Epoch 21, CIFAR-10 Batch 2:  train accuracy 1.0
+train loss 0.0020559614058583975
+test accuracy 0.6527998447418213
+Epoch 21, CIFAR-10 Batch 3:  train accuracy 1.0
+train loss 0.0014123558066785336
+test accuracy 0.6583998799324036
+Epoch 21, CIFAR-10 Batch 4:  train accuracy 1.0
+train loss 0.002818529959768057
+test accuracy 0.6519998908042908
+Epoch 21, CIFAR-10 Batch 5:  train accuracy 1.0
+train loss 0.002599884057417512
+test accuracy 0.6591998934745789
+Epoch 22, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.003926548641175032
+test accuracy 0.6543999314308167
+Epoch 22, CIFAR-10 Batch 2:  train accuracy 1.0
+train loss 0.004794050939381123
+test accuracy 0.6521998643875122
+Epoch 22, CIFAR-10 Batch 3:  train accuracy 1.0
+train loss 0.0014245582278817892
+test accuracy 0.6501998901367188
+Epoch 22, CIFAR-10 Batch 4:  train accuracy 1.0
+train loss 0.002689345506951213
+test accuracy 0.6587998270988464
+Epoch 22, CIFAR-10 Batch 5:  train accuracy 1.0
+train loss 0.003453559009358287
+test accuracy 0.6503998637199402
+Epoch 23, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.004678977187722921
+test accuracy 0.6651998162269592
+Epoch 23, CIFAR-10 Batch 2:  train accuracy 1.0
+train loss 0.003604305675253272
+test accuracy 0.6583999395370483
+Epoch 23, CIFAR-10 Batch 3:  train accuracy 1.0
+train loss 0.0020754835568368435
+test accuracy 0.6609998345375061
+Epoch 23, CIFAR-10 Batch 4:  train accuracy 1.0
+train loss 0.0034698625095188618
+test accuracy 0.6581999063491821
+Epoch 23, CIFAR-10 Batch 5:  train accuracy 1.0
+train loss 0.0034897353034466505
+test accuracy 0.6581999063491821
+Epoch 24, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.002535151317715645
+test accuracy 0.6459999084472656
+Epoch 24, CIFAR-10 Batch 2:  train accuracy 1.0
+train loss 0.0030915432143956423
+test accuracy 0.654999852180481
+Epoch 24, CIFAR-10 Batch 3:  train accuracy 1.0
+train loss 0.005907448474317789
+test accuracy 0.6623998880386353
+Epoch 24, CIFAR-10 Batch 4:  train accuracy 1.0
+train loss 0.0012952927500009537
+test accuracy 0.6559998989105225
+Epoch 24, CIFAR-10 Batch 5:  train accuracy 1.0
+train loss 0.003288199193775654
+test accuracy 0.649199903011322
+Epoch 25, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.0037151905708014965
+test accuracy 0.6585999131202698
+Epoch 25, CIFAR-10 Batch 2:  train accuracy 1.0
+train loss 0.003871099092066288
+test accuracy 0.6565998792648315
+Epoch 25, CIFAR-10 Batch 3:  train accuracy 1.0
+train loss 0.0006479853764176369
+test accuracy 0.666999876499176
+Epoch 25, CIFAR-10 Batch 4:  train accuracy 1.0
+train loss 0.0013680900447070599
+test accuracy 0.6561998724937439
+Epoch 25, CIFAR-10 Batch 5:  train accuracy 1.0
+train loss 0.001344414777122438
+test accuracy 0.6589999198913574
+Epoch 26, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.0026387409307062626
+test accuracy 0.6547999382019043
+Epoch 26, CIFAR-10 Batch 2:  train accuracy 1.0
+train loss 0.0031566035468131304
+test accuracy 0.6551998853683472
+Epoch 26, CIFAR-10 Batch 3:  train accuracy 1.0
+train loss 0.000477341003715992
+test accuracy 0.6621999144554138
+Epoch 26, CIFAR-10 Batch 4:  train accuracy 1.0
+train loss 0.0012160700280219316
+test accuracy 0.6483998894691467
+Epoch 26, CIFAR-10 Batch 5:  train accuracy 1.0
+train loss 0.0034562433138489723
+test accuracy 0.6539998650550842
+Epoch 27, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.003597914706915617
+test accuracy 0.665199875831604
+Epoch 27, CIFAR-10 Batch 2:  train accuracy 1.0
+train loss 0.00035802563070319593
+test accuracy 0.6613999009132385
+Epoch 27, CIFAR-10 Batch 3:  train accuracy 1.0
+train loss 0.0008439876255579293
+test accuracy 0.6561999320983887
+Epoch 27, CIFAR-10 Batch 4:  train accuracy 1.0
+train loss 0.0015063319588080049
+test accuracy 0.6561999320983887
+Epoch 27, CIFAR-10 Batch 5:  train accuracy 1.0
+train loss 0.001343397656455636
+test accuracy 0.6543998718261719
+Epoch 28, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.0015831178752705455
+test accuracy 0.6481999158859253
+Epoch 28, CIFAR-10 Batch 2:  train accuracy 1.0
+train loss 0.0006709058070555329
+test accuracy 0.639799952507019
+Epoch 28, CIFAR-10 Batch 3:  train accuracy 1.0
+train loss 0.0005290234694257379
+test accuracy 0.6631999015808105
+Epoch 28, CIFAR-10 Batch 4:  train accuracy 1.0
+train loss 0.0012238022172823548
+test accuracy 0.6497998833656311
+Epoch 28, CIFAR-10 Batch 5:  train accuracy 1.0
+train loss 0.0020954268984496593
+test accuracy 0.6593998670578003
+Epoch 29, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.00213346304371953
+test accuracy 0.6505998969078064
+Epoch 29, CIFAR-10 Batch 2:  train accuracy 1.0
+train loss 0.0005687451921403408
+test accuracy 0.6583998799324036
+Epoch 29, CIFAR-10 Batch 3:  train accuracy 1.0
+train loss 0.0004975083866156638
+test accuracy 0.658599853515625
+Epoch 29, CIFAR-10 Batch 4:  train accuracy 1.0
+train loss 0.0012234995374456048
+test accuracy 0.6599999070167542
+Epoch 29, CIFAR-10 Batch 5:  train accuracy 1.0
+train loss 0.005558259319514036
+test accuracy 0.655799925327301
+Epoch 30, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.0014290673425421119
+test accuracy 0.6575998663902283
+Epoch 30, CIFAR-10 Batch 2:  train accuracy 1.0
+train loss 0.00028739689150825143
+test accuracy 0.6549999117851257
+Epoch 30, CIFAR-10 Batch 3:  train accuracy 1.0
+train loss 0.0006975754513405263
+test accuracy 0.6543998718261719
+Epoch 30, CIFAR-10 Batch 4:  train accuracy 1.0
+train loss 0.0015989358071237803
+test accuracy 0.6523998975753784
+Epoch 30, CIFAR-10 Batch 5:  train accuracy 1.0
+train loss 0.0004662597202695906
+test accuracy 0.6581999063491821
+Epoch 31, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.0022558216005563736
+test accuracy 0.6561998724937439
+Epoch 31, CIFAR-10 Batch 2:  train accuracy 1.0
+train loss 0.0004116366326343268
+test accuracy 0.6603999137878418
+Epoch 31, CIFAR-10 Batch 3:  train accuracy 1.0
+train loss 0.00032878131605684757
+test accuracy 0.6591998934745789
+Epoch 31, CIFAR-10 Batch 4:  train accuracy 1.0
+train loss 0.001176065532490611
+test accuracy 0.6493998765945435
+Epoch 31, CIFAR-10 Batch 5:  train accuracy 1.0
+train loss 0.0013701367424800992
+test accuracy 0.6483998894691467
+Epoch 32, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.0022740717977285385
+test accuracy 0.6489998698234558
+Epoch 32, CIFAR-10 Batch 2:  train accuracy 1.0
+train loss 0.0006431936635635793
+test accuracy 0.6545998454093933
+Epoch 32, CIFAR-10 Batch 3:  train accuracy 1.0
+train loss 0.0009215516038239002
+test accuracy 0.6559998989105225
+Epoch 32, CIFAR-10 Batch 4:  train accuracy 1.0
+train loss 0.0013430818216875196
+test accuracy 0.6583998799324036
+Epoch 32, CIFAR-10 Batch 5:  train accuracy 1.0
+train loss 0.00043509912211447954
+test accuracy 0.6605998873710632
+Epoch 33, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.0005178565625101328
+test accuracy 0.6573998928070068
+Epoch 33, CIFAR-10 Batch 2:  train accuracy 1.0
+train loss 0.0004840926849283278
+test accuracy 0.653999924659729
+Epoch 33, CIFAR-10 Batch 3:  train accuracy 1.0
+train loss 0.0011994423111900687
+test accuracy 0.6563998460769653
+Epoch 33, CIFAR-10 Batch 4:  train accuracy 1.0
+train loss 0.0023375970777124166
+test accuracy 0.6525998711585999
+Epoch 33, CIFAR-10 Batch 5:  train accuracy 1.0
+train loss 0.000537632848136127
+test accuracy 0.6561998724937439
+Epoch 34, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.001135377213358879
+test accuracy 0.6569998860359192
+Epoch 34, CIFAR-10 Batch 2:  train accuracy 1.0
+train loss 0.0009990078397095203
+test accuracy 0.655799925327301
+Epoch 34, CIFAR-10 Batch 3:  train accuracy 1.0
+train loss 0.00042982344166375697
+test accuracy 0.6609998941421509
+Epoch 34, CIFAR-10 Batch 4:  train accuracy 1.0
+train loss 0.0017977042589336634
+test accuracy 0.6561998724937439
+Epoch 34, CIFAR-10 Batch 5:  train accuracy 1.0
+train loss 0.0008923299610614777
+test accuracy 0.6497999429702759
+Epoch 35, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.002301605883985758
+test accuracy 0.6433998346328735
+Epoch 35, CIFAR-10 Batch 2:  train accuracy 1.0
+train loss 0.0007278521661646664
+test accuracy 0.656799852848053
+Epoch 35, CIFAR-10 Batch 3:  train accuracy 1.0
+train loss 0.0002310682466486469
+test accuracy 0.6597998142242432
+Epoch 35, CIFAR-10 Batch 4:  train accuracy 1.0
+train loss 0.0011732762213796377
+test accuracy 0.6543998718261719
+Epoch 35, CIFAR-10 Batch 5:  train accuracy 1.0
+train loss 0.0003931952523998916
+test accuracy 0.6673998832702637
+Epoch 36, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.0004901966312900186
+test accuracy 0.6575998663902283
+Epoch 36, CIFAR-10 Batch 2:  train accuracy 1.0
+train loss 0.000125246646348387
+test accuracy 0.6501998901367188
+Epoch 36, CIFAR-10 Batch 3:  train accuracy 1.0
+train loss 0.000604111875873059
+test accuracy 0.6481998562812805
+Epoch 36, CIFAR-10 Batch 4:  train accuracy 1.0
+train loss 0.0003899612929672003
+test accuracy 0.6605998873710632
+Epoch 36, CIFAR-10 Batch 5:  train accuracy 1.0
+train loss 0.0016778376884758472
+test accuracy 0.6515998840332031
+Epoch 37, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.0006868699565529823
+test accuracy 0.6417999267578125
+Epoch 37, CIFAR-10 Batch 2:  train accuracy 1.0
+train loss 0.0005281877820380032
+test accuracy 0.6579999327659607
+Epoch 37, CIFAR-10 Batch 3:  train accuracy 1.0
+train loss 0.00020067222067154944
+test accuracy 0.6579998731613159
+Epoch 37, CIFAR-10 Batch 4:  train accuracy 1.0
+train loss 0.0015760220121592283
+test accuracy 0.6477999091148376
+Epoch 37, CIFAR-10 Batch 5:  train accuracy 1.0
+train loss 0.001981513574719429
+test accuracy 0.6471998691558838
+Epoch 38, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.001041546929627657
+test accuracy 0.6471998691558838
+Epoch 38, CIFAR-10 Batch 2:  train accuracy 1.0
+train loss 0.000236454900004901
+test accuracy 0.6403998136520386
+Epoch 38, CIFAR-10 Batch 3:  train accuracy 1.0
+train loss 0.00031123493681661785
+test accuracy 0.6489999294281006
+Epoch 38, CIFAR-10 Batch 4:  train accuracy 1.0
+train loss 0.0007694914820604026
+test accuracy 0.6469998955726624
+Epoch 38, CIFAR-10 Batch 5:  train accuracy 1.0
+train loss 0.00037018387229181826
+test accuracy 0.6511998176574707
+Epoch 39, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.0012442503357306123
+test accuracy 0.6575998663902283
+Epoch 39, CIFAR-10 Batch 2:  train accuracy 1.0
+train loss 0.00013772628153674304
+test accuracy 0.6617998480796814
+Epoch 39, CIFAR-10 Batch 3:  train accuracy 1.0
+train loss 0.0003142397617921233
+test accuracy 0.6475998759269714
+Epoch 39, CIFAR-10 Batch 4:  train accuracy 1.0
+train loss 0.0006520799943245947
+test accuracy 0.6499999165534973
+Epoch 39, CIFAR-10 Batch 5:  train accuracy 1.0
+train loss 0.0003827828913927078
+test accuracy 0.6577999591827393
+Epoch 40, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.0005127872573211789
+test accuracy 0.6569998860359192
+Epoch 40, CIFAR-10 Batch 2:  train accuracy 1.0
+train loss 0.00012509137741290033
+test accuracy 0.650999903678894
+Epoch 40, CIFAR-10 Batch 3:  train accuracy 1.0
+train loss 0.00018704254762269557
+test accuracy 0.6555998921394348
+Epoch 40, CIFAR-10 Batch 4:  train accuracy 1.0
+train loss 0.0007428511162288487
+test accuracy 0.6383998990058899
+Epoch 40, CIFAR-10 Batch 5:  train accuracy 1.0
+train loss 0.00023139793484006077
+test accuracy 0.6609998941421509
+Epoch 41, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.0015883350279182196
+test accuracy 0.6509997844696045
+Epoch 41, CIFAR-10 Batch 2:  train accuracy 1.0
+train loss 0.00034989326377399266
+test accuracy 0.6511998772621155
+Epoch 41, CIFAR-10 Batch 3:  train accuracy 1.0
+train loss 0.00014477655349764973
+test accuracy 0.6597998738288879
+Epoch 41, CIFAR-10 Batch 4:  train accuracy 1.0
+train loss 0.0009471499361097813
+test accuracy 0.6441998481750488
+Epoch 41, CIFAR-10 Batch 5:  train accuracy 1.0
+train loss 0.00023962982231751084
+test accuracy 0.652199923992157
+Epoch 42, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.00039510420174337924
+test accuracy 0.6489998698234558
+Epoch 42, CIFAR-10 Batch 2:  train accuracy 1.0
+train loss 6.688775465590879e-05
+test accuracy 0.6455998420715332
+Epoch 42, CIFAR-10 Batch 3:  train accuracy 1.0
+train loss 0.0004814623389393091
+test accuracy 0.6485999226570129
+Epoch 42, CIFAR-10 Batch 4:  train accuracy 1.0
+train loss 0.0006119564641267061
+test accuracy 0.6417998671531677
+Epoch 42, CIFAR-10 Batch 5:  train accuracy 1.0
+train loss 0.00030947569757699966
+test accuracy 0.6517998576164246
+Epoch 43, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.0006346440059132874
+test accuracy 0.6487998962402344
+Epoch 43, CIFAR-10 Batch 2:  train accuracy 1.0
+train loss 0.00013064977247267962
+test accuracy 0.6589999198913574
+Epoch 43, CIFAR-10 Batch 3:  train accuracy 1.0
+train loss 0.00021194340661168098
+test accuracy 0.6609998941421509
+Epoch 43, CIFAR-10 Batch 4:  train accuracy 1.0
+train loss 0.00032375133014284074
+test accuracy 0.6529998779296875
+Epoch 43, CIFAR-10 Batch 5:  train accuracy 1.0
+train loss 0.00019645017164293677
+test accuracy 0.6523998975753784
+Epoch 44, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.00043207494309172034
+test accuracy 0.6525998711585999
+Epoch 44, CIFAR-10 Batch 2:  train accuracy 1.0
+train loss 0.00021062137966509908
+test accuracy 0.6553999185562134
+Epoch 44, CIFAR-10 Batch 3:  train accuracy 1.0
+train loss 0.0003530716639943421
+test accuracy 0.6611998081207275
+Epoch 44, CIFAR-10 Batch 4:  train accuracy 1.0
+train loss 0.00071863760240376
+test accuracy 0.6521998643875122
+Epoch 44, CIFAR-10 Batch 5:  train accuracy 1.0
+train loss 0.00035122045665048063
+test accuracy 0.6467998623847961
+Epoch 45, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.0002510598860681057
+test accuracy 0.6523998975753784
+Epoch 45, CIFAR-10 Batch 2:  train accuracy 1.0
+train loss 0.00019959069322794676
+test accuracy 0.6595999002456665
+Epoch 45, CIFAR-10 Batch 3:  train accuracy 1.0
+train loss 0.00023963412968441844
+test accuracy 0.6629998683929443
+Epoch 45, CIFAR-10 Batch 4:  train accuracy 1.0
+train loss 0.0004096631018910557
+test accuracy 0.6577998995780945
+Epoch 45, CIFAR-10 Batch 5:  train accuracy 1.0
+train loss 0.0010862466879189014
+test accuracy 0.6581999063491821
+Epoch 46, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.0001747184433043003
+test accuracy 0.6577998995780945
+Epoch 46, CIFAR-10 Batch 2:  train accuracy 1.0
+train loss 0.0001361480390187353
+test accuracy 0.6587998867034912
+Epoch 46, CIFAR-10 Batch 3:  train accuracy 1.0
+train loss 6.665487308055162e-05
+test accuracy 0.6597998738288879
+Epoch 46, CIFAR-10 Batch 4:  train accuracy 1.0
+train loss 0.00028259531245566905
+test accuracy 0.6613998413085938
+Epoch 46, CIFAR-10 Batch 5:  train accuracy 1.0
+train loss 0.00023277032596524805
+test accuracy 0.655799925327301
+Epoch 47, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.00024906027829274535
+test accuracy 0.6465998888015747
+Epoch 47, CIFAR-10 Batch 2:  train accuracy 1.0
+train loss 0.00013848896196577698
+test accuracy 0.6505998373031616
+Epoch 47, CIFAR-10 Batch 3:  train accuracy 1.0
+train loss 0.00019827323558274657
+test accuracy 0.65559983253479
+Epoch 47, CIFAR-10 Batch 4:  train accuracy 1.0
+train loss 0.0003417308325879276
+test accuracy 0.6545999050140381
+Epoch 47, CIFAR-10 Batch 5:  train accuracy 1.0
+train loss 0.00036480295239016414
+test accuracy 0.6611999273300171
+Epoch 48, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.0003347313613630831
+test accuracy 0.6419999003410339
+Epoch 48, CIFAR-10 Batch 2:  train accuracy 1.0
+train loss 0.00033720326609909534
+test accuracy 0.6607998609542847
+Epoch 48, CIFAR-10 Batch 3:  train accuracy 1.0
+train loss 0.00013797770952805877
+test accuracy 0.6649998426437378
+Epoch 48, CIFAR-10 Batch 4:  train accuracy 1.0
+train loss 0.00043320286204107106
+test accuracy 0.6565998792648315
+Epoch 48, CIFAR-10 Batch 5:  train accuracy 1.0
+train loss 0.00027889414923265576
+test accuracy 0.6631999015808105
+Epoch 49, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.00011772647121688351
+test accuracy 0.6563999056816101
+Epoch 49, CIFAR-10 Batch 2:  train accuracy 1.0
+train loss 0.0004508208076003939
+test accuracy 0.6639999151229858
+Epoch 49, CIFAR-10 Batch 3:  train accuracy 1.0
+train loss 0.0013095965841785073
+test accuracy 0.6557998657226562
+Epoch 49, CIFAR-10 Batch 4:  train accuracy 1.0
+train loss 0.000348531873896718
+test accuracy 0.6483998894691467
+Epoch 49, CIFAR-10 Batch 5:  train accuracy 1.0
+train loss 0.0006796581437811255
+test accuracy 0.6601998209953308
+Epoch 50, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.0010225109290331602
+test accuracy 0.64739990234375
+Epoch 50, CIFAR-10 Batch 2:  train accuracy 1.0
+train loss 0.0005842316313646734
+test accuracy 0.6563999056816101
+Epoch 50, CIFAR-10 Batch 3:  train accuracy 1.0
+train loss 0.0001443989312974736
+test accuracy 0.6601998805999756
+Epoch 50, CIFAR-10 Batch 4:  train accuracy 1.0
+train loss 0.00017988431500270963
+test accuracy 0.6577998995780945
+Epoch 50, CIFAR-10 Batch 5:  train accuracy 1.0
+train loss 0.0002566600451245904
+test accuracy 0.6531999111175537
+Epoch 51, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.00020525975560303777
+test accuracy 0.6571998596191406
+Epoch 51, CIFAR-10 Batch 2:  train accuracy 1.0
+train loss 0.000410508451750502
+test accuracy 0.6541998982429504
+Epoch 51, CIFAR-10 Batch 3:  train accuracy 1.0
+train loss 0.00019209322636015713
+test accuracy 0.6529998779296875
+Epoch 51, CIFAR-10 Batch 4:  train accuracy 1.0
+train loss 0.00927743036299944
+test accuracy 0.6549999713897705
+Epoch 51, CIFAR-10 Batch 5:  train accuracy 1.0
+train loss 0.00021350466704461724
+test accuracy 0.6545999050140381
+Epoch 52, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.0002723131328821182
+test accuracy 0.6547998785972595
+Epoch 52, CIFAR-10 Batch 2:  train accuracy 1.0
+train loss 0.0002254919963888824
+test accuracy 0.662199854850769
+Epoch 52, CIFAR-10 Batch 3:  train accuracy 1.0
+train loss 0.00011441327660577372
+test accuracy 0.6577998995780945
+Epoch 52, CIFAR-10 Batch 4:  train accuracy 1.0
+train loss 0.0008302175556309521
+test accuracy 0.6517999172210693
+Epoch 52, CIFAR-10 Batch 5:  train accuracy 1.0
+train loss 0.000365171319572255
+test accuracy 0.6565998792648315
+Epoch 53, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.00019624049309641123
+test accuracy 0.6561998724937439
+Epoch 53, CIFAR-10 Batch 2:  train accuracy 1.0
+train loss 9.957460133591667e-05
+test accuracy 0.6627998352050781
+Epoch 53, CIFAR-10 Batch 3:  train accuracy 1.0
+train loss 0.00011949102918151766
+test accuracy 0.6603999137878418
+Epoch 53, CIFAR-10 Batch 4:  train accuracy 1.0
+train loss 0.00021847491734661162
+test accuracy 0.6587998867034912
+Epoch 53, CIFAR-10 Batch 5:  train accuracy 1.0
+train loss 0.00047384676872752607
+test accuracy 0.6513998508453369
+Epoch 54, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.0003925078781321645
+test accuracy 0.656799852848053
+Epoch 54, CIFAR-10 Batch 2:  train accuracy 1.0
+train loss 7.444570655934513e-05
+test accuracy 0.6597998738288879
+Epoch 54, CIFAR-10 Batch 3:  train accuracy 1.0
+train loss 0.0004751973319798708
+test accuracy 0.6499998569488525
+Epoch 54, CIFAR-10 Batch 4:  train accuracy 1.0
+train loss 0.00024784746346995234
+test accuracy 0.6597999334335327
+Epoch 54, CIFAR-10 Batch 5:  train accuracy 1.0
+train loss 0.0005479947431012988
+test accuracy 0.6561998724937439
+Epoch 55, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.0007171755423769355
+test accuracy 0.6583998799324036
+Epoch 55, CIFAR-10 Batch 2:  train accuracy 1.0
+train loss 0.0001631642080610618
+test accuracy 0.6611998677253723
+Epoch 55, CIFAR-10 Batch 3:  train accuracy 1.0
+train loss 0.0001911633589770645
+test accuracy 0.6533998847007751
+Epoch 55, CIFAR-10 Batch 4:  train accuracy 1.0
+train loss 0.0011069054016843438
+test accuracy 0.6549999117851257
+Epoch 55, CIFAR-10 Batch 5:  train accuracy 1.0
+train loss 0.00020015804329887033
+test accuracy 0.650399923324585
+Epoch 56, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.00026171901845373213
+test accuracy 0.65559983253479
+Epoch 56, CIFAR-10 Batch 2:  train accuracy 1.0
+train loss 0.00021895217651035637
+test accuracy 0.6485999226570129
+Epoch 56, CIFAR-10 Batch 3:  train accuracy 1.0
+train loss 0.0003412451478652656
+test accuracy 0.6537998914718628
+Epoch 56, CIFAR-10 Batch 4:  train accuracy 1.0
+train loss 0.0011605961481109262
+test accuracy 0.6637999415397644
+Epoch 56, CIFAR-10 Batch 5:  train accuracy 1.0
+train loss 0.00030974613036960363
+test accuracy 0.6563999056816101
+Epoch 57, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.0004747456405311823
+test accuracy 0.6461999416351318
+Epoch 57, CIFAR-10 Batch 2:  train accuracy 1.0
+train loss 0.0001951142039615661
+test accuracy 0.6553998589515686
+Epoch 57, CIFAR-10 Batch 3:  train accuracy 1.0
+train loss 0.00011834679753519595
+test accuracy 0.6517998576164246
+Epoch 57, CIFAR-10 Batch 4:  train accuracy 1.0
+train loss 0.0005523153231479228
+test accuracy 0.6545999050140381
+Epoch 57, CIFAR-10 Batch 5:  train accuracy 1.0
+train loss 0.00036236256710253656
+test accuracy 0.6523998975753784
+Epoch 58, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.00015353577327914536
+test accuracy 0.6541998982429504
+Epoch 58, CIFAR-10 Batch 2:  train accuracy 1.0
+train loss 0.0002095060917781666
+test accuracy 0.6595999002456665
+Epoch 58, CIFAR-10 Batch 3:  train accuracy 1.0
+train loss 0.0001831476838560775
+test accuracy 0.658599853515625
+Epoch 58, CIFAR-10 Batch 4:  train accuracy 1.0
+train loss 0.00011690135579556227
+test accuracy 0.6631999015808105
+Epoch 58, CIFAR-10 Batch 5:  train accuracy 1.0
+train loss 0.00019569671712815762
+test accuracy 0.6557998657226562
+Epoch 59, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.00010482140351086855
+test accuracy 0.6471999287605286
+Epoch 59, CIFAR-10 Batch 2:  train accuracy 1.0
+train loss 0.00013381151075009257
+test accuracy 0.6515999436378479
+Epoch 59, CIFAR-10 Batch 3:  train accuracy 1.0
+train loss 0.000821585941594094
+test accuracy 0.6519998908042908
+Epoch 59, CIFAR-10 Batch 4:  train accuracy 1.0
+train loss 0.0002057872770819813
+test accuracy 0.6629999279975891
+Epoch 59, CIFAR-10 Batch 5:  train accuracy 1.0
+train loss 0.00030188710661605
+test accuracy 0.6543998718261719
+Epoch 60, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 9.260835940949619e-05
+test accuracy 0.6551999449729919
+Epoch 60, CIFAR-10 Batch 2:  train accuracy 1.0
+train loss 5.283012069412507e-05
+test accuracy 0.6587998867034912
+Epoch 60, CIFAR-10 Batch 3:  train accuracy 1.0
+train loss 0.00045628121006302536
+test accuracy 0.6611998677253723
+Epoch 60, CIFAR-10 Batch 4:  train accuracy 1.0
+train loss 0.00013923135702498257
+test accuracy 0.6471999287605286
+Epoch 60, CIFAR-10 Batch 5:  train accuracy 1.0
+train loss 0.00016884063370525837
+test accuracy 0.6481998562812805
+Epoch 61, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.00016105767281260341
+test accuracy 0.6543998718261719
+Epoch 61, CIFAR-10 Batch 2:  train accuracy 1.0
+train loss 0.0002942141436506063
+test accuracy 0.6521998643875122
+Epoch 61, CIFAR-10 Batch 3:  train accuracy 1.0
+train loss 0.0002718236646614969
+test accuracy 0.655799925327301
+Epoch 61, CIFAR-10 Batch 4:  train accuracy 1.0
+train loss 0.0001171754120150581
+test accuracy 0.6591998934745789
+Epoch 61, CIFAR-10 Batch 5:  train accuracy 1.0
+train loss 0.00011952032218687236
+test accuracy 0.6561999320983887
+Epoch 62, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.0005376512999646366
+test accuracy 0.6515998840332031
+Epoch 62, CIFAR-10 Batch 2:  train accuracy 1.0
+train loss 0.00017762737115845084
+test accuracy 0.6521998643875122
+Epoch 62, CIFAR-10 Batch 3:  train accuracy 1.0
+train loss 0.0001553504989715293
+test accuracy 0.650999903678894
+Epoch 62, CIFAR-10 Batch 4:  train accuracy 1.0
+train loss 0.0006188098341226578
+test accuracy 0.6565998792648315
+Epoch 62, CIFAR-10 Batch 5:  train accuracy 1.0
+train loss 0.00018973179976455867
+test accuracy 0.658599853515625
+Epoch 63, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.00011311044363537803
+test accuracy 0.6533998847007751
+Epoch 63, CIFAR-10 Batch 2:  train accuracy 1.0
+train loss 7.632900087628514e-05
+test accuracy 0.6555999517440796
+Epoch 63, CIFAR-10 Batch 3:  train accuracy 1.0
+train loss 0.000258453976130113
+test accuracy 0.6525998711585999
+Epoch 63, CIFAR-10 Batch 4:  train accuracy 1.0
+train loss 9.605540981283411e-05
+test accuracy 0.6625999212265015
+Epoch 63, CIFAR-10 Batch 5:  train accuracy 1.0
+train loss 0.00012755213538184762
+test accuracy 0.6541998982429504
+Epoch 64, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 5.701265035895631e-05
+test accuracy 0.6495999097824097
+Epoch 64, CIFAR-10 Batch 2:  train accuracy 1.0
+train loss 0.00012551824329420924
+test accuracy 0.6489999294281006
+Epoch 64, CIFAR-10 Batch 3:  train accuracy 1.0
+train loss 0.0008241332834586501
+test accuracy 0.6527999043464661
+Epoch 64, CIFAR-10 Batch 4:  train accuracy 1.0
+train loss 6.852456863271073e-05
+test accuracy 0.6597998738288879
+Epoch 64, CIFAR-10 Batch 5:  train accuracy 1.0
+train loss 0.00010275868407916278
+test accuracy 0.6533998250961304
+Epoch 65, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 8.815198816591874e-05
+test accuracy 0.6649998426437378
+Epoch 65, CIFAR-10 Batch 2:  train accuracy 1.0
+train loss 9.770588803803548e-05
+test accuracy 0.6469999551773071
+Epoch 65, CIFAR-10 Batch 3:  train accuracy 1.0
+train loss 6.343441782519221e-05
+test accuracy 0.6537998914718628
+Epoch 65, CIFAR-10 Batch 4:  train accuracy 1.0
+train loss 0.00031165743712335825
+test accuracy 0.6589999198913574
+Epoch 65, CIFAR-10 Batch 5:  train accuracy 1.0
+train loss 7.124419789761305e-05
+test accuracy 0.6637998819351196
+Epoch 66, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.0003211970324628055
+test accuracy 0.6593998670578003
+Epoch 66, CIFAR-10 Batch 2:  train accuracy 1.0
+train loss 0.00018405095033813268
+test accuracy 0.6513999104499817
+Epoch 66, CIFAR-10 Batch 3:  train accuracy 1.0
+train loss 0.0001149614981841296
+test accuracy 0.6623998880386353
+Epoch 66, CIFAR-10 Batch 4:  train accuracy 1.0
+train loss 0.00017356463649775833
+test accuracy 0.6577998399734497
+Epoch 66, CIFAR-10 Batch 5:  train accuracy 1.0
+train loss 0.0003871594672091305
+test accuracy 0.656799852848053
+Epoch 67, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.000242659414652735
+test accuracy 0.6533998847007751
+Epoch 67, CIFAR-10 Batch 2:  train accuracy 1.0
+train loss 0.0004570354940369725
+test accuracy 0.6525998711585999
+Epoch 67, CIFAR-10 Batch 3:  train accuracy 1.0
+train loss 3.826036845566705e-05
+test accuracy 0.6481999158859253
+Epoch 67, CIFAR-10 Batch 4:  train accuracy 1.0
+train loss 0.00018156060832552612
+test accuracy 0.6511998772621155
+Epoch 67, CIFAR-10 Batch 5:  train accuracy 1.0
+train loss 6.321660475805402e-05
+test accuracy 0.6585999131202698
+Epoch 68, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.00015932309906929731
+test accuracy 0.662199854850769
+Epoch 68, CIFAR-10 Batch 2:  train accuracy 1.0
+train loss 0.0007712109363637865
+test accuracy 0.6467999219894409
+Epoch 68, CIFAR-10 Batch 3:  train accuracy 1.0
+train loss 0.00015486113261431456
+test accuracy 0.6595999002456665
+Epoch 68, CIFAR-10 Batch 4:  train accuracy 1.0
+train loss 9.722365211928263e-05
+test accuracy 0.6591998934745789
+Epoch 68, CIFAR-10 Batch 5:  train accuracy 1.0
+train loss 0.0001326349884038791
+test accuracy 0.6517999172210693
+Epoch 69, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.00033971003722399473
+test accuracy 0.6467998027801514
+Epoch 69, CIFAR-10 Batch 2:  train accuracy 1.0
+train loss 0.0002793305611703545
+test accuracy 0.6507999300956726
+Epoch 69, CIFAR-10 Batch 3:  train accuracy 1.0
+train loss 0.00023166686878539622
+test accuracy 0.6413998603820801
+Epoch 69, CIFAR-10 Batch 4:  train accuracy 1.0
+train loss 0.0002272541169077158
+test accuracy 0.6535998582839966
+Epoch 69, CIFAR-10 Batch 5:  train accuracy 1.0
+train loss 0.00013436609879136086
+test accuracy 0.6609998941421509
+Epoch 70, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.00015834903751965612
+test accuracy 0.6627998948097229
+Epoch 70, CIFAR-10 Batch 2:  train accuracy 1.0
+train loss 0.0002605208719614893
+test accuracy 0.6533998847007751
+Epoch 70, CIFAR-10 Batch 3:  train accuracy 1.0
+train loss 0.0004150079912506044
+test accuracy 0.6583998799324036
+Epoch 70, CIFAR-10 Batch 4:  train accuracy 1.0
+train loss 0.0002189059159718454
+test accuracy 0.6633998155593872
+Epoch 70, CIFAR-10 Batch 5:  train accuracy 1.0
+train loss 8.82681633811444e-05
+test accuracy 0.6639998555183411
+Epoch 71, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.00011613493552431464
+test accuracy 0.6613999605178833
+Epoch 71, CIFAR-10 Batch 2:  train accuracy 1.0
+train loss 0.0004784543998539448
+test accuracy 0.6589999198913574
+Epoch 71, CIFAR-10 Batch 3:  train accuracy 1.0
+train loss 8.812788291834295e-05
+test accuracy 0.6677998900413513
+Epoch 71, CIFAR-10 Batch 4:  train accuracy 1.0
+train loss 0.00010139474034076557
+test accuracy 0.6675998568534851
+Epoch 71, CIFAR-10 Batch 5:  train accuracy 1.0
+train loss 0.00038347457302734256
+test accuracy 0.6555998921394348
+Epoch 72, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.00020593695808202028
+test accuracy 0.6565998792648315
+Epoch 72, CIFAR-10 Batch 2:  train accuracy 1.0
+train loss 0.00042630042298696935
+test accuracy 0.6519998908042908
+Epoch 72, CIFAR-10 Batch 3:  train accuracy 1.0
+train loss 0.0012771174078807235
+test accuracy 0.6645998954772949
+Epoch 72, CIFAR-10 Batch 4:  train accuracy 1.0
+train loss 0.00010797748836921528
+test accuracy 0.6601998805999756
+Epoch 72, CIFAR-10 Batch 5:  train accuracy 1.0
+train loss 9.996036533266306e-05
+test accuracy 0.6561998128890991
+Epoch 73, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.00014085302245803177
+test accuracy 0.6479998826980591
+Epoch 73, CIFAR-10 Batch 2:  train accuracy 1.0
+train loss 0.0001191377523355186
+test accuracy 0.6489999294281006
+Epoch 73, CIFAR-10 Batch 3:  train accuracy 1.0
+train loss 0.0005310972919687629
+test accuracy 0.6491997838020325
+Epoch 73, CIFAR-10 Batch 4:  train accuracy 1.0
+train loss 0.00016039895126596093
+test accuracy 0.6613999009132385
+Epoch 73, CIFAR-10 Batch 5:  train accuracy 1.0
+train loss 3.443064633756876e-05
+test accuracy 0.6597998738288879
+Epoch 74, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.0002274095604661852
+test accuracy 0.6501998901367188
+Epoch 74, CIFAR-10 Batch 2:  train accuracy 1.0
+train loss 6.47983979433775e-05
+test accuracy 0.6523998379707336
+Epoch 74, CIFAR-10 Batch 3:  train accuracy 1.0
+train loss 0.00021609835675917566
+test accuracy 0.6589999198913574
+Epoch 74, CIFAR-10 Batch 4:  train accuracy 1.0
+train loss 0.00033869396429508924
+test accuracy 0.6639999151229858
+Epoch 74, CIFAR-10 Batch 5:  train accuracy 1.0
+train loss 5.084603253635578e-05
+test accuracy 0.6667998433113098
+Epoch 75, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.00019466414232738316
+test accuracy 0.6521998643875122
+Epoch 75, CIFAR-10 Batch 2:  train accuracy 1.0
+train loss 0.00014306711091194302
+test accuracy 0.6595999002456665
+Epoch 75, CIFAR-10 Batch 3:  train accuracy 1.0
+train loss 0.011506582610309124
+test accuracy 0.6625999212265015
+Epoch 75, CIFAR-10 Batch 4:  train accuracy 1.0
+train loss 7.640280819032341e-05
+test accuracy 0.6595999002456665
+Epoch 75, CIFAR-10 Batch 5:  train accuracy 1.0
+train loss 0.00024035644310060889
+test accuracy 0.6473998427391052
+Epoch 76, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.0006353831267915666
+test accuracy 0.660399854183197
+Epoch 76, CIFAR-10 Batch 2:  train accuracy 1.0
+train loss 0.0002682589110918343
+test accuracy 0.6593999266624451
+Epoch 76, CIFAR-10 Batch 3:  train accuracy 1.0
+train loss 3.657499109976925e-05
+test accuracy 0.6647999286651611
+Epoch 76, CIFAR-10 Batch 4:  train accuracy 1.0
+train loss 7.050771091599017e-05
+test accuracy 0.6609998941421509
+Epoch 76, CIFAR-10 Batch 5:  train accuracy 1.0
+train loss 0.00017939972167368978
+test accuracy 0.6591998338699341
+Epoch 77, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.00023884173424448818
+test accuracy 0.6503998637199402
+Epoch 77, CIFAR-10 Batch 2:  train accuracy 1.0
+train loss 0.00023012745077721775
+test accuracy 0.6601998209953308
+Epoch 77, CIFAR-10 Batch 3:  train accuracy 1.0
+train loss 7.883973012212664e-05
+test accuracy 0.6583999395370483
+Epoch 77, CIFAR-10 Batch 4:  train accuracy 1.0
+train loss 0.00015504498151130974
+test accuracy 0.6621997952461243
+Epoch 77, CIFAR-10 Batch 5:  train accuracy 1.0
+train loss 0.00028889381792396307
+test accuracy 0.6477999091148376
+Epoch 78, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.00019807711942121387
+test accuracy 0.6525998115539551
+Epoch 78, CIFAR-10 Batch 2:  train accuracy 1.0
+train loss 9.804304863791913e-05
+test accuracy 0.6641998887062073
+Epoch 78, CIFAR-10 Batch 3:  train accuracy 1.0
+train loss 0.00011223001638427377
+test accuracy 0.6629999279975891
+Epoch 78, CIFAR-10 Batch 4:  train accuracy 1.0
+train loss 0.0002431889297440648
+test accuracy 0.6597998142242432
+Epoch 78, CIFAR-10 Batch 5:  train accuracy 1.0
+train loss 0.00013988796854391694
+test accuracy 0.6591998338699341
+Epoch 79, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.0008359856437891722
+test accuracy 0.6589998602867126
+Epoch 79, CIFAR-10 Batch 2:  train accuracy 1.0
+train loss 0.00035933396429754794
+test accuracy 0.6609998345375061
+Epoch 79, CIFAR-10 Batch 3:  train accuracy 1.0
+train loss 6.131583359092474e-05
+test accuracy 0.6645998954772949
+Epoch 79, CIFAR-10 Batch 4:  train accuracy 1.0
+train loss 0.00016462293569929898
+test accuracy 0.6527999043464661
+Epoch 79, CIFAR-10 Batch 5:  train accuracy 1.0
+train loss 0.0001221080165123567
+test accuracy 0.6633999347686768
+Epoch 80, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.0001934404717758298
+test accuracy 0.6591998934745789
+Epoch 80, CIFAR-10 Batch 2:  train accuracy 1.0
+train loss 4.324277688283473e-05
+test accuracy 0.6569998264312744
+Epoch 80, CIFAR-10 Batch 3:  train accuracy 1.0
+train loss 0.000510155688971281
+test accuracy 0.6547999382019043
+Epoch 80, CIFAR-10 Batch 4:  train accuracy 1.0
+train loss 5.907275408389978e-05
+test accuracy 0.6599999070167542
+Epoch 80, CIFAR-10 Batch 5:  train accuracy 1.0
+train loss 1.8658258341019973e-05
+test accuracy 0.6561998724937439
+Epoch 81, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 9.190117998514324e-05
+test accuracy 0.6451998949050903
+Epoch 81, CIFAR-10 Batch 2:  train accuracy 1.0
+train loss 1.9086279280600138e-05
+test accuracy 0.6545998454093933
+Epoch 81, CIFAR-10 Batch 3:  train accuracy 1.0
+train loss 6.8756373366341e-05
+test accuracy 0.658599853515625
+Epoch 81, CIFAR-10 Batch 4:  train accuracy 1.0
+train loss 5.758663610322401e-05
+test accuracy 0.6469998955726624
+Epoch 81, CIFAR-10 Batch 5:  train accuracy 1.0
+train loss 2.8291646231082268e-05
+test accuracy 0.6703999042510986
+Epoch 82, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 6.592612771783024e-05
+test accuracy 0.6649999022483826
+Epoch 82, CIFAR-10 Batch 2:  train accuracy 1.0
+train loss 3.245234984206036e-05
+test accuracy 0.6631999015808105
+Epoch 82, CIFAR-10 Batch 3:  train accuracy 1.0
+train loss 5.9666490415111184e-05
+test accuracy 0.6555998921394348
+Epoch 82, CIFAR-10 Batch 4:  train accuracy 1.0
+train loss 1.7495696738478728e-05
+test accuracy 0.6595998406410217
+Epoch 82, CIFAR-10 Batch 5:  train accuracy 1.0
+train loss 0.00016368247452192008
+test accuracy 0.6639999747276306
+Epoch 83, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.00016001000767573714
+test accuracy 0.6605998873710632
+Epoch 83, CIFAR-10 Batch 2:  train accuracy 1.0
+train loss 4.009170879726298e-05
+test accuracy 0.6587998867034912
+Epoch 83, CIFAR-10 Batch 3:  train accuracy 1.0
+train loss 1.974819133465644e-05
+test accuracy 0.6625998616218567
+Epoch 83, CIFAR-10 Batch 4:  train accuracy 1.0
+train loss 0.0008965678280219436
+test accuracy 0.6525998711585999
+Epoch 83, CIFAR-10 Batch 5:  train accuracy 1.0
+train loss 3.157868923153728e-05
+test accuracy 0.654999852180481
+Epoch 84, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.0002471601474098861
+test accuracy 0.6627998352050781
+Epoch 84, CIFAR-10 Batch 2:  train accuracy 1.0
+train loss 0.00025564516545273364
+test accuracy 0.6613999009132385
+Epoch 84, CIFAR-10 Batch 3:  train accuracy 1.0
+train loss 0.0001642532297410071
+test accuracy 0.6573998928070068
+Epoch 84, CIFAR-10 Batch 4:  train accuracy 1.0
+train loss 0.00010166903666686267
+test accuracy 0.6409999132156372
+Epoch 84, CIFAR-10 Batch 5:  train accuracy 1.0
+train loss 0.00014940275286789984
+test accuracy 0.6545999050140381
+Epoch 85, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.00019669270841404796
+test accuracy 0.6563998460769653
+Epoch 85, CIFAR-10 Batch 2:  train accuracy 1.0
+train loss 1.3446392586047295e-05
+test accuracy 0.6481999158859253
+Epoch 85, CIFAR-10 Batch 3:  train accuracy 1.0
+train loss 3.322297561680898e-05
+test accuracy 0.6577999591827393
+Epoch 85, CIFAR-10 Batch 4:  train accuracy 1.0
+train loss 6.306215800577775e-05
+test accuracy 0.6599998474121094
+Epoch 85, CIFAR-10 Batch 5:  train accuracy 1.0
+train loss 0.00022453864221461117
+test accuracy 0.6577998995780945
+Epoch 86, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 6.423630111385137e-05
+test accuracy 0.6601999402046204
+Epoch 86, CIFAR-10 Batch 2:  train accuracy 1.0
+train loss 0.0007841644110158086
+test accuracy 0.6589999198913574
+Epoch 86, CIFAR-10 Batch 3:  train accuracy 1.0
+train loss 3.436705083004199e-05
+test accuracy 0.6657998561859131
+Epoch 86, CIFAR-10 Batch 4:  train accuracy 1.0
+train loss 4.270459612598643e-05
+test accuracy 0.6559998989105225
+Epoch 86, CIFAR-10 Batch 5:  train accuracy 1.0
+train loss 0.00010109513823408633
+test accuracy 0.6607999205589294
+Epoch 87, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.00017722751363180578
+test accuracy 0.6523998975753784
+Epoch 87, CIFAR-10 Batch 2:  train accuracy 1.0
+train loss 0.00010657298844307661
+test accuracy 0.657599925994873
+Epoch 87, CIFAR-10 Batch 3:  train accuracy 1.0
+train loss 4.72801984869875e-05
+test accuracy 0.6587998867034912
+Epoch 87, CIFAR-10 Batch 4:  train accuracy 1.0
+train loss 2.9820370400557294e-05
+test accuracy 0.6601998805999756
+Epoch 87, CIFAR-10 Batch 5:  train accuracy 1.0
+train loss 5.4655567510053515e-05
+test accuracy 0.6533998847007751
+Epoch 88, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.0004585752612911165
+test accuracy 0.6579998731613159
+Epoch 88, CIFAR-10 Batch 2:  train accuracy 1.0
+train loss 6.965789361856878e-05
+test accuracy 0.6611998677253723
+Epoch 88, CIFAR-10 Batch 3:  train accuracy 1.0
+train loss 7.744014874333516e-05
+test accuracy 0.6533998847007751
+Epoch 88, CIFAR-10 Batch 4:  train accuracy 1.0
+train loss 0.00011374069435987622
+test accuracy 0.6477999687194824
+Epoch 88, CIFAR-10 Batch 5:  train accuracy 1.0
+train loss 1.0194893548032269e-05
+test accuracy 0.6599998474121094
+Epoch 89, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 4.007352254120633e-05
+test accuracy 0.655799925327301
+Epoch 89, CIFAR-10 Batch 2:  train accuracy 1.0
+train loss 5.458473242470063e-05
+test accuracy 0.6505998969078064
+Epoch 89, CIFAR-10 Batch 3:  train accuracy 1.0
+train loss 2.2831683963886462e-05
+test accuracy 0.6559998393058777
+Epoch 89, CIFAR-10 Batch 4:  train accuracy 1.0
+train loss 0.00011543100117705762
+test accuracy 0.6553998589515686
+Epoch 89, CIFAR-10 Batch 5:  train accuracy 1.0
+train loss 4.6060991735430434e-05
+test accuracy 0.6523998975753784
+Epoch 90, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 6.852133083157241e-05
+test accuracy 0.6641998291015625
+Epoch 90, CIFAR-10 Batch 2:  train accuracy 1.0
+train loss 1.8535032722866163e-05
+test accuracy 0.6459998488426208
+Epoch 90, CIFAR-10 Batch 3:  train accuracy 1.0
+train loss 3.8152531487867236e-05
+test accuracy 0.6501998901367188
+Epoch 90, CIFAR-10 Batch 4:  train accuracy 1.0
+train loss 2.461142503307201e-05
+test accuracy 0.6555998921394348
+Epoch 90, CIFAR-10 Batch 5:  train accuracy 1.0
+train loss 5.103692092234269e-05
+test accuracy 0.6483998894691467
+Epoch 91, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 7.978307985467836e-05
+test accuracy 0.6503998637199402
+Epoch 91, CIFAR-10 Batch 2:  train accuracy 1.0
+train loss 0.0001862248027464375
+test accuracy 0.6533998250961304
+Epoch 91, CIFAR-10 Batch 3:  train accuracy 1.0
+train loss 5.643279291689396e-05
+test accuracy 0.6429999470710754
+Epoch 91, CIFAR-10 Batch 4:  train accuracy 1.0
+train loss 0.00012588934623636305
+test accuracy 0.6559999585151672
+Epoch 91, CIFAR-10 Batch 5:  train accuracy 1.0
+train loss 6.662389205303043e-05
+test accuracy 0.6591998338699341
+Epoch 92, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 6.413111987058073e-05
+test accuracy 0.6527999043464661
+Epoch 92, CIFAR-10 Batch 2:  train accuracy 1.0
+train loss 1.546262501506135e-05
+test accuracy 0.6517998576164246
+Epoch 92, CIFAR-10 Batch 3:  train accuracy 1.0
+train loss 9.857812256086618e-05
+test accuracy 0.6507998704910278
+Epoch 92, CIFAR-10 Batch 4:  train accuracy 1.0
+train loss 0.0001185879809781909
+test accuracy 0.6571998596191406
+Epoch 92, CIFAR-10 Batch 5:  train accuracy 1.0
+train loss 0.0002479151007719338
+test accuracy 0.6523998975753784
+Epoch 93, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.0001304321485804394
+test accuracy 0.6543999314308167
+Epoch 93, CIFAR-10 Batch 2:  train accuracy 1.0
+train loss 3.130595723632723e-05
+test accuracy 0.6545999050140381
+Epoch 93, CIFAR-10 Batch 3:  train accuracy 1.0
+train loss 0.00011774244921980426
+test accuracy 0.6607998609542847
+Epoch 93, CIFAR-10 Batch 4:  train accuracy 1.0
+train loss 0.00013202676200307906
+test accuracy 0.6529998779296875
+Epoch 93, CIFAR-10 Batch 5:  train accuracy 1.0
+train loss 5.7064826251007617e-05
+test accuracy 0.6561998128890991
+Epoch 94, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 5.2951967518310994e-05
+test accuracy 0.6481998562812805
+Epoch 94, CIFAR-10 Batch 2:  train accuracy 1.0
+train loss 2.5025301511050202e-05
+test accuracy 0.6577998995780945
+Epoch 94, CIFAR-10 Batch 3:  train accuracy 1.0
+train loss 5.962888099020347e-05
+test accuracy 0.6579998135566711
+Epoch 94, CIFAR-10 Batch 4:  train accuracy 1.0
+train loss 5.1611365051940084e-05
+test accuracy 0.6537998914718628
+Epoch 94, CIFAR-10 Batch 5:  train accuracy 1.0
+train loss 1.6071455320343375e-05
+test accuracy 0.6581999063491821
+Epoch 95, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 7.74323707446456e-05
+test accuracy 0.653799831867218
+Epoch 95, CIFAR-10 Batch 2:  train accuracy 1.0
+train loss 5.255107316770591e-05
+test accuracy 0.6537998914718628
+Epoch 95, CIFAR-10 Batch 3:  train accuracy 1.0
+train loss 9.65884537436068e-05
+test accuracy 0.6587998867034912
+Epoch 95, CIFAR-10 Batch 4:  train accuracy 1.0
+train loss 4.5785731344949454e-05
+test accuracy 0.6561998724937439
+Epoch 95, CIFAR-10 Batch 5:  train accuracy 1.0
+train loss 2.1959454898023978e-05
+test accuracy 0.6621999740600586
+Epoch 96, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 4.316752529121004e-05
+test accuracy 0.6587998867034912
+Epoch 96, CIFAR-10 Batch 2:  train accuracy 1.0
+train loss 2.391389170952607e-05
+test accuracy 0.6543998718261719
+Epoch 96, CIFAR-10 Batch 3:  train accuracy 1.0
+train loss 0.00014276579895522445
+test accuracy 0.6525998711585999
+Epoch 96, CIFAR-10 Batch 4:  train accuracy 1.0
+train loss 3.478338476270437e-05
+test accuracy 0.6607998609542847
+Epoch 96, CIFAR-10 Batch 5:  train accuracy 1.0
+train loss 1.72691452462459e-05
+test accuracy 0.6619999408721924
+Epoch 97, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 4.045116656925529e-05
+test accuracy 0.6475999355316162
+Epoch 97, CIFAR-10 Batch 2:  train accuracy 1.0
+train loss 2.550483259255998e-05
+test accuracy 0.6523998975753784
+Epoch 97, CIFAR-10 Batch 3:  train accuracy 1.0
+train loss 1.1961756172240712e-05
+test accuracy 0.6545999646186829
+Epoch 97, CIFAR-10 Batch 4:  train accuracy 1.0
+train loss 0.00011951515625696629
+test accuracy 0.6529998779296875
+Epoch 97, CIFAR-10 Batch 5:  train accuracy 1.0
+train loss 6.807346653658897e-05
+test accuracy 0.6629999279975891
+Epoch 98, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 7.409615500364453e-05
+test accuracy 0.6551998257637024
+Epoch 98, CIFAR-10 Batch 2:  train accuracy 1.0
+train loss 6.796460365876555e-05
+test accuracy 0.6659998893737793
+Epoch 98, CIFAR-10 Batch 3:  train accuracy 1.0
+train loss 2.2099211491877213e-05
+test accuracy 0.6581999063491821
+Epoch 98, CIFAR-10 Batch 4:  train accuracy 1.0
+train loss 0.00014310600818134844
+test accuracy 0.6483998894691467
+Epoch 98, CIFAR-10 Batch 5:  train accuracy 1.0
+train loss 3.913921318599023e-05
+test accuracy 0.66159987449646
+Epoch 99, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.00012063275062246248
+test accuracy 0.6629998683929443
+Epoch 99, CIFAR-10 Batch 2:  train accuracy 1.0
+train loss 3.1651063181925565e-05
+test accuracy 0.6575998663902283
+Epoch 99, CIFAR-10 Batch 3:  train accuracy 1.0
+train loss 9.513432451058179e-05
+test accuracy 0.6661999225616455
+Epoch 99, CIFAR-10 Batch 4:  train accuracy 1.0
+train loss 7.66540106269531e-05
+test accuracy 0.6543998718261719
+Epoch 99, CIFAR-10 Batch 5:  train accuracy 1.0
+train loss 5.005972343496978e-05
+test accuracy 0.6587998270988464
+Epoch 100, CIFAR-10 Batch 1:  train accuracy 1.0
+train loss 0.00011495274520711973
+test accuracy 0.6587998270988464
+Epoch 100, CIFAR-10 Batch 2:  train accuracy 1.0
+train loss 0.0002586341870483011
+test accuracy 0.6471999287605286
+Epoch 100, CIFAR-10 Batch 3:  train accuracy 1.0
+train loss 7.059804920572788e-05
+test accuracy 0.6591998338699341
+Epoch 100, CIFAR-10 Batch 4:  train accuracy 1.0
+train loss 5.8843834267463535e-05
+test accuracy 0.657599925994873
+Epoch 100, CIFAR-10 Batch 5:  train accuracy 1.0
+train loss 9.423992014490068e-05
+test accuracy 0.6577998995780945
 </pre>
 </div>
 </div>
@@ -13743,7 +15097,7 @@ test accuracy 0.09780000150203705
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[52]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
@@ -13812,6 +15166,823 @@ test accuracy 0.09780000150203705
 </pre></div>
 
 </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>INFO:tensorflow:Restoring parameters from ./image_classification
+Testing Accuracy: 0.66435546875
+
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,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
+1G9mZmY25UzF4Hhlvj5gmHmM30Ya0Daelkp6fXWjpCXAX+ab3+uwruL+7C1pdos6XwQctVmtbO98
+4B5SbvRn2hUc5ZzNZmZmZlPWVAyOfwEEaWqyL0laBCBpgaS/Af6ZNCXbeFoJfF3SGyV15fMfSHMB
+kj8AX+mwrkuAdaS5kb8laedc3xxJbwXOZRzuT14t70TSY/l6ST8slsnO5++R9CxJnwPuHOvzm5mZ
+mW2NplxwHBG3AF/MN08EHpf0OCm/99OkHtHTx7kZXwWuJw2kWyNpJfBb0uDAdcCrI6KTfGMiYgXw
+4Xzz1cD9klaQlsT+N+A24NSxbf7guf+LtIpeL2nJ7GskrZP0KOl+XEYaDLhw+FrMzMzMpo8pFxwD
+RMT7SekL15Cmb6vnv98LvBzoZK7iLbGRtCjG35EWBOkhTQN3NvCMiLhoNJVFxJdIS1cXvchdpJX2
+TibNRzzcNG1bLCK+CTyZ9IXjBtJAwgWk3uoLchuePF7nNzMzM9uaTLvlo8dTafnoUz21mZmZmdn0
+MyV7js3MzMzMxoODYzMzMzOzzMGxmZmZmVnm4NjMzMzMLPOAPDMzMzOzzD3HZmZmZmaZg2MzMzMz
+s8zBsZmZmZlZ5uDYzMzMzCzrmuwGmJlNR5LuJC3FvnySm2JmNhUtBVZFxB4TfeJpGxx/7ie3BsD8
++fMGt9XzvZ0/dw4APbWewX29G/sBmDVLACxY2HxoZtfrAKzdkMp0dWlw387bpbqUJ/1Ys653cN+s
+rlTHnFnp+Joag/tquY5Gf7PNPfmU9Vx9vdacSaSrnq+Vdpaqop63tZp3ZJPJSEp1BqmSbVQXZjbW
+FsyZM2fJfvvtt2SyG2JmNtXcdNNNrF+/flLOPW2D47sfeBSAbbbZOLhtmwUpUP7Do6vS7TnbDO7r
+6ZkNQN/q9ET8YWUziJybg1x1daeyOdhNUrkupTJ9vc3juusDAGyYVcSezYi23p32qRTS9nTV8nHK
+t8t1Rb5OZeqqlfal9ihHwgMDA1TVarVcphkHR3Fuh8ZWIukC4MiIGNdXhqSlwJ3Av0fEceN5rkmy
+fL/99lty1VVXTXY7zMymnIMPPpirr756+WSc2znHZmZmZmbZtO05NrPN9mZg7mQ3Yjq4/r6VLD3p
+J5PdDDOzSbH8Uy+f7CZslmkbHK/N2RQbB9YNblu9vg+AWT0pDWHN2pWD+7q60wE9PemX5Nmzm53q
+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
+"
+width=355
+height=319
+>
+</div>
+
+</div>
+
 </div>
 </div>
 

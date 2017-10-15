@@ -145,16 +145,18 @@ def normalize(x):
     x_deep = x.shape[2]
     normalized_x=np.zeros(x.shape)
     for deep in range(x_deep):
-        min_x = np.min(x[:, :, deep])
-        max_x = np.max(x[:, :, deep])
-        diff = max_x - min_x
-        
-        for m, n in zip(range(x_width), range(x_length)):
-            if diff != 0:
-                normalized_x[m, n, deep] = (x[m, n, deep] - min_x) / diff
-            else:
-                 normalized_x[m, n, deep] = 0
-#     normalized_x = normalize(x)
+#         min_x = np.min(x[:, :, deep])
+#         max_x = np.max(x[:, :, deep])
+#         diff = max_x - min_x
+        normalized_x[:, :, deep] = (x[:, :, deep]-
+                                    np.min(x[:, :, deep]))/(np.max(x[:, :, deep])
+                                                            -np.min(x[:, :, deep]))
+#         for m, n in zip(range(x_width), range(x_length)):
+#             if diff != 0:
+#                 normalized_x[m, n, deep] = (x[m, n, deep] - min_x) / diff
+#             else:
+#                  normalized_x[m, n, deep] = 0
+
     return normalized_x
 
 
@@ -179,7 +181,7 @@ tests.test_normalize(normalize)
 # 
 # 你可以尝试使用 sklearn preprocessing 模块中的 `LabelBinarizer` 函数。
 
-# In[24]:
+# In[5]:
 
 
 from sklearn import preprocessing
@@ -217,7 +219,7 @@ tests.test_one_hot_encode(one_hot_encode)
 # 
 # 运行如下代码，它将会预处理所有的 CIFAR-10 数据并将它另存为文件。此外，如下的代码还将会把 10% 的训练数据留出作为验证数据。
 
-# In[25]:
+# In[6]:
 
 
 """
@@ -234,7 +236,7 @@ helper.preprocess_and_save_data(cifar10_dataset_folder_path, normalize, one_hot_
 # 
 # 这是你的首个检查点。因为预处理完的数据已经被保存到硬盘上了，所以如果你需要回顾或重启该 notebook，你可以在这里重新开始。
 
-# In[1]:
+# In[7]:
 
 
 """
@@ -310,7 +312,7 @@ valid_features, valid_labels = pickle.load(open('preprocess_validation.p', mode=
 # 
 # **注意：**在 TensorFlow 中，对形状设定为 `None`，能帮助设定一个动态的大小。
 
-# In[2]:
+# In[8]:
 
 
 import tensorflow as tf
@@ -393,7 +395,7 @@ tests.test_nn_keep_prob_inputs(neural_net_keep_prob_input)
 # **提示：**
 # 当你在 Python 中希望展开（unpacking）某个变量的值作为函数的参数，你可以参考 [unpacking](https://docs.python.org/3/tutorial/controlflow.html#unpacking-argument-lists) 运算符。
 
-# In[3]:
+# In[9]:
 
 
 def conv2d_maxpool(x_tensor, conv_num_outputs, conv_ksize, conv_strides, pool_ksize, pool_strides):
@@ -410,9 +412,9 @@ def conv2d_maxpool(x_tensor, conv_num_outputs, conv_ksize, conv_strides, pool_ks
     # TODO: Implement Function
     t_channel = x_tensor.get_shape().as_list()[-1]
     # weight variable 
-    t_weight = tf.Variable(tf.random_normal([*conv_ksize, t_channel, conv_num_outputs]))
+    t_weight = tf.Variable(tf.random_normal([*conv_ksize, t_channel, conv_num_outputs],  stddev=.05))
     # bias variable 
-    t_bias = tf.Variable(tf.random_normal([conv_num_outputs]))
+    t_bias = tf.Variable(tf.zeros([conv_num_outputs]))
     # convolution layer
     t_cov = tf.nn.conv2d(input=x_tensor, filter=t_weight, strides=[1, *conv_strides, 1], padding='SAME')
     # add bias term
@@ -439,7 +441,7 @@ tests.test_con_pool(conv2d_maxpool)
 # 修改 `flatten` 函数，来将4维的输入张量 `x_tensor` 转换为一个二维的张量。输出的形状应当是 `(Batch Size, Flattened Image Size)`。
 # 快捷方法：你可以使用来自 [TensorFlow Layers](https://www.tensorflow.org/api_docs/python/tf/layers) 或 [TensorFlow Layers (contrib)](https://www.tensorflow.org/api_guides/python/contrib.layers) 包中的函数来实现该功能。不过你也可以只使用 TensorFlow 包中的函数来挑战自己。
 
-# In[4]:
+# In[10]:
 
 
 def flatten(x_tensor):
@@ -471,7 +473,7 @@ tests.test_flatten(flatten)
 # 
 # 修改 `fully_conn` 函数，来对形如 `(batch Size, num_outputs)` 的输入 `x_tensor` 应用一个全连接层。快捷方法：你可以使用来自 [TensorFlow Layers](https://www.tensorflow.org/api_docs/python/tf/layers) 或 [TensorFlow Layers (contrib)](https://www.tensorflow.org/api_guides/python/contrib.layers) 包中的函数来实现该功能。不过你也可以只使用 TensorFlow 包中的函数来挑战自己。
 
-# In[5]:
+# In[11]:
 
 
 def fully_conn(x_tensor, num_outputs):
@@ -504,7 +506,7 @@ tests.test_fully_conn(fully_conn)
 # **注意：**
 # 激活函数、softmax 或者交叉熵（corss entropy）**不**应被加入到该层。
 
-# In[6]:
+# In[12]:
 
 
 def output(x_tensor, num_outputs):
@@ -515,7 +517,7 @@ def output(x_tensor, num_outputs):
     : return: A 2-D tensor where the second dimension is num_outputs.
     """
     # TODO: Implement Function
-    output = tf.contrib.layers.fully_connected(x_tensor, num_outputs)
+    output = tf.contrib.layers.fully_connected(x_tensor, num_outputs, activation_fn=None)
     return output
 
 
@@ -546,7 +548,7 @@ tests.test_output(output)
 # * 返回呼出结果
 # * 在一个或多个层上使用 [TensorFlow's Dropout](https://www.tensorflow.org/api_docs/python/tf/nn/dropout)，对应的保留概率为 `keep_prob`. 
 
-# In[7]:
+# In[46]:
 
 
 def conv_net(x, keep_prob):
@@ -560,15 +562,15 @@ def conv_net(x, keep_prob):
     #    Play around with different number of outputs, kernel size and stride
     # Function Definition from Above:
     #    conv2d_maxpool(x_tensor, conv_num_outputs, conv_ksize, conv_strides, pool_ksize, pool_strides)
-    x_out = conv2d_maxpool(x, conv_num_outputs=128, conv_ksize=(3, 3), 
-                          conv_strides=(2, 2), pool_ksize=(2,2), pool_strides=(2,2))
-    x_out = tf.nn.dropout(x_out, keep_prob)
-    x_out = conv2d_maxpool(x, conv_num_outputs=64, conv_ksize=(3, 3), 
-                          conv_strides=(2, 2), pool_ksize=(2,2), pool_strides=(2,2))
-    x_out = tf.nn.dropout(x_out, keep_prob)
+    x_out = conv2d_maxpool(x, conv_num_outputs=16, conv_ksize=(3, 3), 
+                          conv_strides=(1, 1), pool_ksize=(2,2), pool_strides=(2,2))
+#     x_out = tf.nn.dropout(x_out, keep_prob)
     x_out = conv2d_maxpool(x, conv_num_outputs=32, conv_ksize=(3, 3), 
-                          conv_strides=(2, 2), pool_ksize=(2,2), pool_strides=(2,2))
-    x_out = tf.nn.dropout(x_out, keep_prob)
+                          conv_strides=(1, 1), pool_ksize=(2,2), pool_strides=(2,2))
+#     x_out = tf.nn.dropout(x_out, keep_prob)
+    x_out = conv2d_maxpool(x, conv_num_outputs=64, conv_ksize=(3, 3), 
+                          conv_strides=(1, 1), pool_ksize=(2,2), pool_strides=(2,2))
+#     x_out = tf.nn.dropout(x_out, keep_prob)
 
     # TODO: Apply a Flatten Layer
     # Function Definition from Above:
@@ -579,8 +581,10 @@ def conv_net(x, keep_prob):
     #    Play around with different number of outputs
     # Function Definition from Above:
     #   fully_conn(x_tensor, num_outputs)
-    x_out = fully_conn(x_out, 100)
-    x_out = fully_conn(x_out, 50)
+    x_out = fully_conn(x_out, 512)
+    x_out = tf.nn.dropout(x_out, keep_prob)
+    x_out = fully_conn(x_out, 256)
+    x_out = tf.nn.dropout(x_out, keep_prob)
     
     # TODO: Apply an Output Layer
     #    Set this to the number of classes
@@ -649,7 +653,7 @@ tests.test_conv_net(conv_net)
 # 
 # 注意：该函数并不要返回某个值，它只对神经网络进行最优化。
 
-# In[8]:
+# In[42]:
 
 
 def train_neural_network(session, optimizer, keep_probability, feature_batch, label_batch):
@@ -678,7 +682,7 @@ tests.test_train_nn(train_neural_network)
 # 
 # 修改 `print_stats` 函数来打印 loss 值及验证准确率。 使用全局的变量 `valid_features` 及 `valid_labels` 来计算验证准确率。 设定保留概率为 1.0 来计算 loss 值及验证准确率。
 
-# In[9]:
+# In[43]:
 
 
 def print_stats(session, feature_batch, label_batch, cost, accuracy):
@@ -696,7 +700,7 @@ def print_stats(session, feature_batch, label_batch, cost, accuracy):
     t_acc = session.run(accuracy, feed_dict={x: feature_batch, y: label_batch, keep_prob: 1.})
     t_loss = session.run(cost, feed_dict={x: feature_batch, y: label_batch, keep_prob: 1.})
     print("train accuracy {}".format(t_acc))
-    print("train loss".format(t_loss))
+    print("train loss {}".format(t_loss))
     print("test accuracy {}".format(test_acc))
 
 
@@ -721,13 +725,13 @@ def print_stats(session, feature_batch, label_batch, cost, accuracy):
 #  * ...
 # * 设定 `keep_probability` 为在 dropout 过程中保留一个节点的概率。
 
-# In[10]:
+# In[44]:
 
 
 # TODO: Tune Parameters
 epochs = 100
-batch_size = 128
-keep_probability = .5
+batch_size = 256
+keep_probability = .7
 
 
 # ### Train on a Single CIFAR-10 Batch
@@ -737,7 +741,7 @@ keep_probability = .5
 # 
 # 相比于在所有 CIFAR-10 数据上训练神经网络，我们首先使用一批数据进行训练。这会帮助你在调节模型提高精度的过程中节省时间。当最终的验证精度超过 50% 之后，你就可以前往下一节在所有数据上运行该模型了。
 
-# In[11]:
+# In[47]:
 
 
 """
@@ -764,7 +768,7 @@ with tf.Session() as sess:
 # 
 # 因为你在单批 CIFAR-10 数据上已经得到了一个不错的准确率了，那你可以尝试在所有五批数据上进行训练。
 
-# In[72]:
+# In[49]:
 
 
 """
@@ -805,7 +809,7 @@ with tf.Session() as sess:
 # 
 # 这部分将在测试数据集上测试你的模型。这边得到的准确率将作为你的最终准确率。你应该得到一个高于 50% 准确率。如果它没有超过 50%，那么你需要继续调整模型架构及参数。
 
-# In[ ]:
+# In[52]:
 
 
 """
