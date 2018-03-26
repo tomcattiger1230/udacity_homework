@@ -1,0 +1,54 @@
+% Created 2018-03-26 Mon 14:57
+% Intended LaTeX compiler: xelatex
+\documentclass[a4paper,11pt]{article}
+\usepackage{graphicx}
+\usepackage{grffile}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\usepackage{ctex}
+\setCJKmainfont{SimSun}
+\author{骆炜}
+\date{\today}
+\title{猫狗大战}
+\hypersetup{
+ pdfauthor={骆炜},
+ pdftitle={猫狗大战},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 25.3.1 (Org mode 9.1.8)}, 
+ pdflang={English}}
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+
+\section{项目背景}
+\label{sec:org61c381c}
+本项目基于Kaggle公开训练的和测试数据集实现对图像中猫狗进行图像识别。
+\section{问题描述}
+\label{sec:org3144931}
+猫狗大战是典型的二分类问题。所用的算法需要通过卷积神经网络，对图片中的图像特征进行提取，找出所分类的对象位置及其所属分类。
+\section{数据或输入}
+\label{sec:orge54e3b4}
+数据的来源主要由Kaggle提供，包括25000张猫狗的训练照片和12500张用以测试的测试照片。最后根据识别结果实现对图片中猫狗的分类（狗=1，猫=0）。另外，根据Github的建议，也可以使用Oxford-IIIT的数据集进行训练。
+\section{解决方法描述}
+\label{sec:org768782f}
+近些年来，图像识别技术得到突飞猛进地发展。在每一年顶级会议上（如CVPR、ICCV和NIPS等），均有国内外学者提出更新更快的网络结构来提升识别的准确率或是能够在在较为轻量的平台上实现。本项目拟采用至少2种常用的网络架构，例如YOLO及其改进版本\cite{RedmonDivvalaGirshickFarhadi2016}, SSD \cite{LiuAnguelovErhanSzegedyReedFuBerg2016} 等，对输入图像进行识别。
+
+除了选择的图像识别网络架构外，对数据的预处理是非常重要的。针对图像训练输入较为局限的问题，拟采用数据增强方法对原有数据源进行扩充，避免出现过拟合现象。
+\section{评估标准}
+\label{sec:orgfff231d}
+评估标准拟采用在测试集中随机抽取图像后进行分类判断，所采用的分类辨识器可以使用Multiclass Support Vector Machine \cite{Kung2014} 或是更常见的Softmax分类器 \cite{QiWangLiu2017}。
+
+\bibliography{../../../../LibData/Bibliography/bib}
+
+\bibliographystyle{unsrt}
+\end{document}

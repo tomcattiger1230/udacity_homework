@@ -1,0 +1,28 @@
+\begin{thebibliography}{1}
+
+\bibitem{RedmonDivvalaGirshickFarhadi2016}
+Joseph Redmon, Santosh Divvala, Ross Girshick, and Ali Farhadi.
+\newblock You only look once: Unified, real-time object detection.
+\newblock In {\em Proceedings of the IEEE conference on computer vision and
+  pattern recognition}, pages 779--788, 2016.
+
+\bibitem{LiuAnguelovErhanSzegedyReedFuBerg2016}
+Wei Liu, Dragomir Anguelov, Dumitru Erhan, Christian Szegedy, Scott Reed,
+  Cheng-Yang Fu, and Alexander~C Berg.
+\newblock {SSD}: Single shot multibox detector.
+\newblock In {\em European conference on computer vision}, pages 21--37.
+  Springer, 2016.
+
+\bibitem{Kung2014}
+S.~Y. Kung.
+\newblock Support vector learning models for outlier detection.
+\newblock {\em Kernel Methods and Machine Learning}, page 380–394, 2014.
+
+\bibitem{QiWangLiu2017}
+Xingqun Qi, Tianhui Wang, and Jiaming Liu.
+\newblock Comparison of support vector machine and softmax classifiers in
+  computer vision.
+\newblock {\em 2017 Second International Conference on Mechanical, Control and
+  Computer Engineering (ICMCCE)}, Dec 2017.
+
+\end{thebibliography}
