@@ -1,17 +1,15 @@
 \begin{thebibliography}{1}
 
-\bibitem{RedmonDivvalaGirshickFarhadi2016}
-Joseph Redmon, Santosh Divvala, Ross Girshick, and Ali Farhadi.
-\newblock You only look once: Unified, real-time object detection.
-\newblock In {\em Proceedings of the IEEE conference on computer vision and
-  pattern recognition}, pages 779--788, 2016.
+\bibitem{KrizhevskySutskeverHinton2017}
+Alex Krizhevsky, Ilya Sutskever, and Geoffrey~E. Hinton.
+\newblock Imagenet classification with deep convolutional neural networks.
+\newblock {\em Communications of the ACM}, 60(6):84–90, May 2017.
 
-\bibitem{LiuAnguelovErhanSzegedyReedFuBerg2016}
-Wei Liu, Dragomir Anguelov, Dumitru Erhan, Christian Szegedy, Scott Reed,
-  Cheng-Yang Fu, and Alexander~C Berg.
-\newblock {SSD}: Single shot multibox detector.
-\newblock In {\em European conference on computer vision}, pages 21--37.
-  Springer, 2016.
+\bibitem{XieGirshickDollarTuHe2017}
+Saining Xie, Ross Girshick, Piotr Dollar, Zhuowen Tu, and Kaiming He.
+\newblock Aggregated residual transformations for deep neural networks.
+\newblock {\em 2017 IEEE Conference on Computer Vision and Pattern Recognition
+  (CVPR)}, Jul 2017.
 
 \bibitem{Kung2014}
 S.~Y. Kung.
