@@ -21,12 +21,8 @@
 ** 数据扩充
    对于神经网络训练而言，由于参数众多，对于所需的训练数据的数量有较大的要求。除了从网上搜集更多的带有标记的数据以外，可以使用数据增强的方法，使用已有数据集中的数据，通过旋转、剪接、高斯模糊等手法对数据进行扩充。另外，可以考虑使用GAN技术对图像进行扩充，最后综合原数据、数据增强产生的数据和GAN生成的数据对所选的模型进行训练。
 
-* 解决方法描述
-近些年来，图像识别技术得到突飞猛进地发展。在每一年顶级会议上（如CVPR、ICCV和NIPS等），均有国内外学者提出更新更快的网络结构来提升识别的准确率或是能够在在较为轻量的平台上实现。本项目拟采用至少2种常用的网络架构，例如ResNet或是MobileNetV2等，对输入图像进行识别。拟使用迁移学习的方法，基于他人已训练的通用性很强的模型进行修改和训练，自定义符合本项目二分类要求的网络结构。
-
-
 * 评估标准
-评估标准拟采用在测试集中随机抽取图像后进行分类判断，所采用的分类辨识器可以使用Multiclass Support Vector Machine cite:Kung2014 或是更常见的Softmax分类器 cite:QiWangLiu2017。 本项目所选用的基准模型为Kaggle的评分标准，至少需要达到Leaderboard的前10%以上的水平。
+评估标准拟采用在测试集中随机抽取图像后进行分类判断，所采用的分类辨识器可以使用Multiclass Support Vector Machine cite:Kung2014 或是更常见的Softmax分类器 cite:QiWangLiu2017。 本项目所选用的基准模型为Kaggle的评分标准，至少需要达到Leaderboard的前10%以上的水平，在本项目当前状态下其评估标准为：logloss要低于0.06127。
 
 ** Loss Function
    在使用或是设定评价函数的时候，通常是通过将softmax的输出用交叉熵的方法计算loss。普通的交叉熵的公式为公式\ref{eq:crossE}。其中{p_i}是预测的分布，而{q_i}是真实的分布。
@@ -35,12 +31,33 @@
    S(q|p) = -\sum_i q_i \log{p_i}
    \end{equation}
 
-   所采用的loss function如公式\ref{eq:lossF}所示。和单一的使用交叉熵方法相比，该方法能避免模型盲目增大e^{z_j}的同时还能防止过拟合的出现。
+   可采用的loss function如公式\ref{eq:lossF}所示。和单一的使用交叉熵方法相比，该方法能避免模型盲目增大e^{z_j}的同时还能防止过拟合的出现。
 
    \begin{equation}
    \label{eq:lossF}
    loss_j = - (1-\epsilon)\log{(e^{z_j})} - \epsilon \sum_{i=1}^n \frac{1}{3} \log{(e^{z_i}/Z)}, Z=e^{z_1}+ e^{z_2}+e^{z_3}
    \end{equation}
+
+   鉴于本项目拟提交到Kaggel进行，所以evaluation时候需要提交符合要求的数据因此所用的损失函数需要符合Kaggel的需求，其使用的函数为：
+   \begin{equation}
+   \label{eq:kaggelE}
+   LogLoss = -\frac{1}{n}\sum_{i=1}^{n}[y_i\log{(\hat{y}_i)}+(1-y_i)\log{(1-\hat{y}_i)}],
+   \end{equation}
+   其中n为测试中图片的数量，\hat{y}_i 是图片i预测为狗的概率，y_i为图片i猫狗的分类（狗为1，猫为0）。
+
+* 实验流程
+实验的具体流程需要大致六个流程。
+** 数据预处理
+   具体内容以在前面章节阐述。
+** 模型搭建
+   近些年来，图像识别技术得到突飞猛进地发展。在每一年顶级会议上（如CVPR、ICCV和NIPS等），均有国内外学者提出更新更快的网络结构来提升识别的准确率或是能够在在较为轻量的平台上实现。本项目拟采用至少2种常用的网络架构，例如ResNet或是MobileNetV2等，对输入图像进行识别。拟使用迁移学习的方法，基于他人已训练的通用性很强的模型进行修改和训练，自定义符合本项目二分类要求的网络结构。
+** 模型训练
+   项目训练和测试都在Keras下部署。训练将会分多个epoch进行，同时根据已有的GPU情况选择合适的batch size进行SGD训练。训练的学习率设置在0.01-0.1之间。考虑到需要将多个模型进行融合以提高判断的准确率，对每个模型所选取的结果进行加权融合，目前的想法是根据所训练模型在通用数据集（如ImageNet）的表现选取合适的加权值。
+** 模型调参
+   模型调参主要是需要调整batch size、learning rate。batch size太大可能会陷入局部最优，太小计算时间太长。learning rate太大容易错过最优点，需要动态调整其值以平衡收敛速度和模型精度。
+** 模型评估和可视化
+   模型主要评估标准为训练和测试的accuracy、precision、recall等参数。由于使用Keras和TF，拟采用Tensorboard进行可视化，可以将loss等参数的值变化显示出来，以监视模型训练过程。
+
 
 
 bibliography:../../../../LibData/Bibliography/bib.bib
