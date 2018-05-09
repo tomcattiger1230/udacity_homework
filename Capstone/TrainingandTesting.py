@@ -4,6 +4,7 @@ from sklearn.utils import shuffle
 from keras.layers import Input, Dropout, Dense
 from keras.models import Model
 from keras.preprocessing.image import ImageDataGenerator
+from keras.callbacks import TensorBoard
 import pandas as pd
 
 np.random.seed(2018)
@@ -27,9 +28,10 @@ x = Dense(1, activation='sigmoid')(x)
 model = Model(input_tensor, x)
 
 model.compile(optimizer='adadelta', loss='binary_crossentropy', metrics=['accuracy'])
-
-
-model.fit(X_train, y_train, batch_size=128, epochs=8, validation_split=0.2)
+log_filepath = './tmp/logs/'
+tb_cb = TensorBoard(log_dir=log_filepath, write_images=1, histogram_freq=1)
+model.fit(X_train, y_train, batch_size=128, epochs=8, 
+validation_split=0.2, verbose=1, callbacks=[tb_cb])
 
 
 y_pred = model.predict(X_test, verbose=1)

@@ -1,29 +1,30 @@
-% Created 2018-04-09 Mon 11:02
-% Intended LaTeX compiler: xelatex
+% Created 2018-05-04 周五 10:03
 \documentclass[a4paper,11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{fixltx2e}
 \usepackage{graphicx}
-\usepackage{grffile}
 \usepackage{longtable}
+\usepackage{float}
 \usepackage{wrapfig}
 \usepackage{rotating}
 \usepackage[normalem]{ulem}
 \usepackage{amsmath}
 \usepackage{textcomp}
+\usepackage{marvosym}
+\usepackage{wasysym}
 \usepackage{amssymb}
-\usepackage{capt-of}
 \usepackage{hyperref}
+\tolerance=1000
 \usepackage{ctex}
 \setCJKmainfont{SimSun}
 \author{骆炜}
 \date{\today}
 \title{猫狗大战}
 \hypersetup{
- pdfauthor={骆炜},
- pdftitle={猫狗大战},
- pdfkeywords={},
- pdfsubject={},
- pdfcreator={Emacs 25.3.1 (Org mode 9.1.8)}, 
- pdflang={English}}
+  pdfkeywords={},
+  pdfsubject={},
+  pdfcreator={Emacs 25.3.1 (Org mode 8.2.10)}}
 \begin{document}
 
 \maketitle
@@ -31,39 +32,39 @@
 
 
 \section{项目背景}
-\label{sec:org9e456b5}
-本项目基于Kaggle公开训练的和测试数据集实现对图像中猫狗进行图像识别。图像识别是计算机视觉传统工作之一，也是近年来机器学习相关算法攻克的热点。虽然神经网络早在20世纪40年代，已有研究学者受到生物学研究成果的启发，建立了相关理论模型，然而受制于当时计算机技术和训练方法等制约，难以实现有效的训练，大多数的研究停留在理论上。传统的神经网络认为每个神经元都需要对输入（比如图像）进行感知，即进行全连接，并且只是进行简单的映射而没有对物体进行抽象处理。而随着研究学者的不断尝试和深入研究，认为可以通过卷积、池化等方式降低计算的难度并且将图像的特征连接（共享）起来，大大提高网络的可用性。其中典型的代表是由LeCun于1998年提出的LeNet5 \cite{KrizhevskySutskeverHinton2017} 。虽然受限于当时的计算能力和计算方法，该网络和现今上百层的神经网络相比实在是非常简略，但是该网络为后续的图像识别提供了一个基础的样式和模板。随着图像数据的丰富，为研究学者提供了丰富的训练样本，进而可以训练越来越复杂而性能强大的神经网络，例如谷歌的Inception V3/V4和Xception，ResNeXt \cite{XieGirshickDollarTuHe2017} 等等。本项目拟基于最新的模型结构和一些实用的方法去对Kaggle公开的猫狗数据集进行训练和测试。
+\label{sec-1}
+本项目基于Kaggle公开训练的和测试数据集实现对图像中猫狗进行图像识别。图像识别是计算机视觉传统工作之一，也是近年来机器学习相关算法攻克的热点。虽然神经网络早在20世纪40年代，已有研究学者受到生物学研究成果的启发，建立了相关理论模型，然而受制于当时计算机技术和训练方法等制约，难以实现有效的训练，大多数的研究停留在理论上。传统的神经网络认为每个神经元都需要对输入（比如图像）进行感知，即进行全连接，并且只是进行简单的映射而没有对物体进行抽象处理。而随着研究学者的不断尝试和深入研究，认为可以通过卷积、池化等方式降低计算的难度并且将图像的特征连接（共享）起来，大大提高网络的可用性。其中典型的代表是由LeCun于1998年提出的LeNet5 cite:KrizhevskySutskeverHinton2017 。虽然受限于当时的计算能力和计算方法，该网络和现今上百层的神经网络相比实在是非常简略，但是该网络为后续的图像识别提供了一个基础的样式和模板。随着图像数据的丰富，为研究学者提供了丰富的训练样本，进而可以训练越来越复杂而性能强大的神经网络，例如谷歌的Inception V3/V4和Xception，ResNeXt cite:XieGirshickDollarTuHe2017 等等。本项目拟基于最新的模型结构和一些实用的方法去对Kaggle公开的猫狗数据集进行训练和测试。
 \section{问题描述}
-\label{sec:org6f63352}
+\label{sec-2}
 猫狗大战是典型的二分类问题。所用的算法需要通过卷积神经网络，对图片中的图像特征进行提取，找出所分类的对象位置及其所属分类。
 \section{数据或输入}
-\label{sec:org9cf5769}
+\label{sec-3}
 数据的来源主要由Kaggle提供，包括25000张猫狗的训练照片和12500张用以测试的测试照片。最后根据识别结果实现对图片中猫狗的分类（狗=1，猫=0）。另外，根据Github的建议，也可以使用Oxford-IIIT的数据集进行训练。除了选择的图像识别网络架构外，对数据的预处理是非常重要的。针对图像训练输入较为局限的问题，拟采用数据增强方法对原有数据源进行扩充，避免出现过拟合现象。
 
 \subsection{数据平衡性分析}
-\label{sec:orgd80bbcc}
+\label{sec-3-1}
 从原始的数据分类是来说，在训练集中分别给出了25000张照片，原始的标记各一半，平衡性相较于大多数分辨实验中已经算是比较好的。
 \subsection{数据清洗}
-\label{sec:orgef49ea3}
+\label{sec-3-2}
 根据对数据进行观察，发现并不是所有标记数据都能够正确反映所属的类别，亦或存在空/错误的图像。如果将这些照片选入进行训练，必然会让神经网络的训练受到干扰。因此有必要在展开训练前对数据进行筛选或是清洗。可采用的方法为通过已经训练完成的模型（例如基于cifar10或是其他涵盖猫狗这两个分类的数据）预先进行分类筛查。通过至少两个模型的筛查后，剔除所检测出的非猫狗图像。
 
 \subsection{数据扩充}
-\label{sec:org78a5802}
+\label{sec-3-3}
 对于神经网络训练而言，由于参数众多，对于所需的训练数据的数量有较大的要求。除了从网上搜集更多的带有标记的数据以外，可以使用数据增强的方法，使用已有数据集中的数据，通过旋转、剪接、高斯模糊等手法对数据进行扩充。另外，可以考虑使用GAN技术对图像进行扩充，最后综合原数据、数据增强产生的数据和GAN生成的数据对所选的模型进行训练。
 
 \section{评估标准}
-\label{sec:orgc29b8e9}
-评估标准拟采用在测试集中随机抽取图像后进行分类判断，所采用的分类辨识器可以使用Multiclass Support Vector Machine \cite{Kung2014} 或是更常见的Softmax分类器 \cite{QiWangLiu2017}。 本项目所选用的基准模型为Kaggle的评分标准，至少需要达到Leaderboard的前10\%以上的水平，在本项目当前状态下其评估标准为：logloss要低于0.06127。
+\label{sec-4}
+评估标准拟采用在测试集中随机抽取图像后进行分类判断，所采用的分类辨识器可以使用Multiclass Support Vector Machine cite:Kung2014 或是更常见的Softmax分类器 cite:QiWangLiu2017。 本项目所选用的基准模型为Kaggle的评分标准，至少需要达到Leaderboard的前10\%以上的水平，在本项目当前状态下其评估标准为：logloss要低于0.06127。
 
 \subsection{Loss Function}
-\label{sec:org454f235}
-在使用或是设定评价函数的时候，通常是通过将softmax的输出用交叉熵的方法计算loss。普通的交叉熵的公式为公式\ref{eq:crossE}。其中\{p\(_{\text{i}}\)\}是预测的分布，而\{q\(_{\text{i}}\)\}是真实的分布。
+\label{sec-4-1}
+在使用或是设定评价函数的时候，通常是通过将softmax的输出用交叉熵的方法计算loss。普通的交叉熵的公式为公式\ref{eq:crossE}。其中\{p$_{\text{i}}$\}是预测的分布，而\{q$_{\text{i}}$\}是真实的分布。
 \begin{equation}
 \label{eq:crossE}
 S(q|p) = -\sum_i q_i \log{p_i}
 \end{equation}
 
-可采用的loss function如公式\ref{eq:lossF}所示。和单一的使用交叉熵方法相比，该方法能避免模型盲目增大e\(^{\text{z}_{\text{j}}}\)的同时还能防止过拟合的出现。
+可采用的loss function如公式\ref{eq:lossF}所示。和单一的使用交叉熵方法相比，该方法能避免模型盲目增大e$^{\text{z}_{\text{j}}}$的同时还能防止过拟合的出现。
 
 \begin{equation}
 \label{eq:lossF}
@@ -75,30 +76,30 @@ loss_j = - (1-\epsilon)\log{(e^{z_j})} - \epsilon \sum_{i=1}^n \frac{1}{3} \log{
 \label{eq:kaggelE}
 LogLoss = -\frac{1}{n}\sum_{i=1}^{n}[y_i\log{(\hat{y}_i)}+(1-y_i)\log{(1-\hat{y}_i)}],
 \end{equation}
-其中n为测试中图片的数量，\hat{y}\(_{\text{i}}\) 是图片i预测为狗的概率，y\(_{\text{i为图片i猫狗的分类}}\)（狗为1，猫为0）。
+其中n为测试中图片的数量，\hat{y}$_{\text{i}}$ 是图片i预测为狗的概率，y$_{\text{i为图片i猫狗的分类（狗为1，猫为0）。}}$
 
 \section{实验流程}
-\label{sec:orgd7a83e8}
+\label{sec-5}
 实验的具体流程需要大致六个流程。
 \subsection{数据预处理}
-\label{sec:org98086fe}
+\label{sec-5-1}
 具体内容以在前面章节阐述。
 \subsection{模型搭建}
-\label{sec:orga35ff75}
+\label{sec-5-2}
 近些年来，图像识别技术得到突飞猛进地发展。在每一年顶级会议上（如CVPR、ICCV和NIPS等），均有国内外学者提出更新更快的网络结构来提升识别的准确率或是能够在在较为轻量的平台上实现。本项目拟采用至少2种常用的网络架构，例如ResNet或是MobileNetV2等，对输入图像进行识别。拟使用迁移学习的方法，基于他人已训练的通用性很强的模型进行修改和训练，自定义符合本项目二分类要求的网络结构。
 \subsection{模型训练}
-\label{sec:orga912f23}
+\label{sec-5-3}
 项目训练和测试都在Keras下部署。训练将会分多个epoch进行，同时根据已有的GPU情况选择合适的batch size进行SGD训练。训练的学习率设置在0.01-0.1之间。考虑到需要将多个模型进行融合以提高判断的准确率，对每个模型所选取的结果进行加权融合，目前的想法是根据所训练模型在通用数据集（如ImageNet）的表现选取合适的加权值。
 \subsection{模型调参}
-\label{sec:org6d2ebe4}
+\label{sec-5-4}
 模型调参主要是需要调整batch size、learning rate。batch size太大可能会陷入局部最优，太小计算时间太长。learning rate太大容易错过最优点，需要动态调整其值以平衡收敛速度和模型精度。
 \subsection{模型评估和可视化}
-\label{sec:org4778596}
+\label{sec-5-5}
 模型主要评估标准为训练和测试的accuracy、precision、recall等参数。由于使用Keras和TF，拟采用Tensorboard进行可视化，可以将loss等参数的值变化显示出来，以监视模型训练过程。
 
 
 
-\bibliography{../../../../LibData/Bibliography/bib}
-
-\bibliographystyle{unsrt}
+bibliography:../../../../LibData/Bibliography/bib.bib
+bibliographystyle:unsrt
+% Emacs 25.3.1 (Org mode 8.2.10)
 \end{document}

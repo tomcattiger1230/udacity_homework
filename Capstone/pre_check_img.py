@@ -88,7 +88,7 @@ for i in MODELS.keys():
     print("[INFO] loading and pre-processing {} image...".format(args["kind"]))
 
     # each catagory has 12500 images
-    for j in range(10):
+    for j in range(12500):
         image_name = args["image"]+args["kind"]+"/"+args["kind"]+"."+str(j)+".jpg"
         image = load_img(image_name, target_size=inputShape)
         image = img_to_array(image)
@@ -116,7 +116,7 @@ for i in sum_result.keys():
 np.save('remove_list_'+args['kind']+'.npy', remove_list)
 f_o = open('./remove_list_'+args['kind']+'.txt', 'w')
 if len(remove_list)>0:
-    for ele in remove_list:
+    for ele in remove_li=st:
         f_o.write(ele+'\n')
     f_o.close()
 else:

@@ -4,7 +4,7 @@
    (TeX-add-to-alist 'LaTeX-provided-class-options
                      '(("article" "a4paper" "11pt")))
    (TeX-add-to-alist 'LaTeX-provided-package-options
-                     '(("ulem" "normalem")))
+                     '(("inputenc" "utf8") ("fontenc" "T1") ("ulem" "normalem")))
    (add-to-list 'LaTeX-verbatim-macros-with-braces-local "path")
    (add-to-list 'LaTeX-verbatim-macros-with-braces-local "url")
    (add-to-list 'LaTeX-verbatim-macros-with-braces-local "nolinkurl")
@@ -16,37 +16,39 @@
     "latex2e"
     "article"
     "art11"
+    "inputenc"
+    "fontenc"
+    "fixltx2e"
     "graphicx"
-    "grffile"
     "longtable"
+    "float"
     "wrapfig"
     "rotating"
     "ulem"
     "amsmath"
     "textcomp"
+    "marvosym"
+    "wasysym"
     "amssymb"
-    "capt-of"
     "hyperref"
     "ctex")
    (LaTeX-add-labels
-    "sec:org9e456b5"
-    "sec:org6f63352"
-    "sec:org9cf5769"
-    "sec:orgd80bbcc"
-    "sec:orgef49ea3"
-    "sec:org78a5802"
-    "sec:orgc29b8e9"
-    "sec:org454f235"
+    "sec-1"
+    "sec-2"
+    "sec-3"
+    "sec-3-1"
+    "sec-3-2"
+    "sec-3-3"
+    "sec-4"
+    "sec-4-1"
     "eq:crossE"
     "eq:lossF"
     "eq:kaggelE"
-    "sec:orgd7a83e8"
-    "sec:org98086fe"
-    "sec:orga35ff75"
-    "sec:orga912f23"
-    "sec:org6d2ebe4"
-    "sec:org4778596")
-   (LaTeX-add-bibliographies
-    "../../../../LibData/Bibliography/bib"))
+    "sec-5"
+    "sec-5-1"
+    "sec-5-2"
+    "sec-5-3"
+    "sec-5-4"
+    "sec-5-5"))
  :latex)
 
