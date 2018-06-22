@@ -5,6 +5,18 @@ Alex Krizhevsky, Ilya Sutskever, and Geoffrey~E. Hinton.
 \newblock Imagenet classification with deep convolutional neural networks.
 \newblock {\em Communications of the ACM}, 60(6):84–90, May 2017.
 
+\bibitem{Jabbar_2014}
+Haider~Khalaf Jabbar and Rafiqul~Zaman Khan.
+\newblock Methods to avoid over-fitting and under-fitting in supervised machine
+  learning (comparative study).
+\newblock {\em Computer Science, Communication and Instrumentation Devices},
+  2014.
+
+\bibitem{Fei_Fei_2010}
+L.~Fei-Fei, J.~Deng, and K.~Li.
+\newblock Imagenet: Constructing a large-scale image database.
+\newblock {\em Journal of Vision}, 9(8):1037–1037, Mar 2010.
+
 \bibitem{SzegedyIoffeVanhoucke2016}
 Christian Szegedy, Sergey Ioffe, and Vincent Vanhoucke.
 \newblock Inception-v4, inception-resnet and the impact of residual connections
@@ -16,5 +28,17 @@ Francois Chollet.
 \newblock Xception: Deep learning with depthwise separable convolutions.
 \newblock {\em 2017 IEEE Conference on Computer Vision and Pattern Recognition
   (CVPR)}, Jul 2017.
+
+\bibitem{Su_2018}
+Jiang Su, Julian Faraone, Junyi Liu, Yiren Zhao, David~B. Thomas, Philip H.~W.
+  Leong, and Peter Y.~K. Cheung.
+\newblock Redundancy-reduced mobilenet acceleration on reconfigurable logic for
+  imagenet classification.
+\newblock {\em Lecture Notes in Computer Science}, page 16–28, 2018.
+
+\bibitem{Ketkar_2017}
+Nikhil Ketkar.
+\newblock Introduction to keras.
+\newblock {\em Deep Learning with Python}, page 97–111, 2017.
 
 \end{thebibliography}

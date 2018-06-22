@@ -5,12 +5,12 @@
                      '(("article" "a4paper" "11pt")))
    (TeX-add-to-alist 'LaTeX-provided-package-options
                      '(("ulem" "normalem")))
-   (add-to-list 'LaTeX-verbatim-macros-with-braces-local "path")
-   (add-to-list 'LaTeX-verbatim-macros-with-braces-local "url")
-   (add-to-list 'LaTeX-verbatim-macros-with-braces-local "nolinkurl")
-   (add-to-list 'LaTeX-verbatim-macros-with-braces-local "hyperbaseurl")
-   (add-to-list 'LaTeX-verbatim-macros-with-braces-local "hyperimage")
    (add-to-list 'LaTeX-verbatim-macros-with-braces-local "hyperref")
+   (add-to-list 'LaTeX-verbatim-macros-with-braces-local "hyperimage")
+   (add-to-list 'LaTeX-verbatim-macros-with-braces-local "hyperbaseurl")
+   (add-to-list 'LaTeX-verbatim-macros-with-braces-local "nolinkurl")
+   (add-to-list 'LaTeX-verbatim-macros-with-braces-local "url")
+   (add-to-list 'LaTeX-verbatim-macros-with-braces-local "path")
    (add-to-list 'LaTeX-verbatim-macros-with-delims-local "path")
    (TeX-run-style-hooks
     "latex2e"
@@ -29,19 +29,19 @@
     "hyperref"
     "ctex")
    (LaTeX-add-labels
-    "sec:org3e7dc3d"
-    "sec:orgad1c2c2"
+    "sec:org9b67672"
+    "sec:orgba8b7f1"
     "fig:lenet5"
     "fig:inceptionV3"
     "fig:inceptionV4"
-    "sec:org210ab0e"
-    "sec:org97a1c93"
+    "sec:org544440e"
+    "sec:orged867fd"
     "fig:keras"
     "fig:remove"
     "fig:miss1"
     "fig:miss2"
     "fig:missfigure"
-    "sec:org4a2437e"
+    "sec:org7d9b262"
     "fig:imgaug"
     "fig:cat1"
     "fig:cat2"
@@ -50,21 +50,21 @@
     "fig:cat5"
     "fig:cat6"
     "fig:cats"
-    "sec:orgec56f37"
+    "sec:org7de32bb"
     "fig:selfmodel"
-    "sec:orgf7613d4"
-    "sec:org8cf7f8d"
-    "sec:org2f091fa"
+    "sec:orgc6cef30"
+    "sec:orge8415af"
+    "sec:org634f99b"
     "fig:kaggle"
     "fig:tb1"
     "fig:tb2"
     "fig:tb3"
     "fig:tb4"
     "fig:tb"
-    "sec:org5dd7fe9"
+    "sec:orgccdbc0b"
     "fig:hm"
-    "sec:org673c358"
-    "sec:org5ec6905")
+    "sec:org1aac7ad"
+    "sec:org417ee14")
    (LaTeX-add-bibliographies
     "../../../../LibData/Bibliography/bib"))
  :latex)
