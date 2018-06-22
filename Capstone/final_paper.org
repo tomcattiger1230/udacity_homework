@@ -11,18 +11,46 @@
 本项目基于Kaggle公开训练的和测试数据集实现对图像中猫狗进行图像识别。本项目涵盖数据处理，模型选择和搭建以及最终测试等主要步骤。
 本项目所涉及的为典型的二分类问题，需要通过训练集的图片对自己所设计的或是改进的神经网络进行训练，而后通过Kaggle官方的评价系统评判所选模型的准确性。相比于对目标图像的判别，这个项目更重视分类的准确性，需要达到Kaggle评分标准（loss不高于0.06127）。
 
+** 目前现状
+   在图像分类上神经网络有着丰富的历史。从经典的LeCun于1998年提出的LeNet5开始 cite:KrizhevskySutskeverHinton2017 ，计算机对于图片的识别能力得到了一步一步地提升。虽然受限于当时的计算能力和计算方法，该网络和现今上百层的神经网络相比实在是非常简略，但是该网络为后续的图像识别提供了一个基础的样式和模板。其经典的结构如图\ref{fig:lenet5}所示。
+   
+   \begin{figure}[htb]
+   \centering
+   \includegraphics[scale=0.4]{./figure/lenet5.png}
+   \caption{LeNet5 经典网络结构}
+   \label{fig:lenet5}
+   \end{figure}
+
+   后人在这个网络结构的启发下，不断提高对于图片的分类和识别的能力。传统结构容易出现，训练难度大，难以收敛，容易过拟合等问题。近些年来，随着图像数据的丰富，为研究学者提供了充足的带标记的训练样本，进而可以训练越来越复杂而性能强大的神经网络。此外，传统的网络在深度不断加深的情况下，容易出现梯度消失、准确率不高等问题。近些年的研究人员同时也不断提出新的网络结构，例如谷歌提出的Inception V3/V4 cite:SzegedyIoffeVanhoucke2016 和Xception cite:Chollet_2017 等等。其中InceptionV3和V4的结构如图\ref{fig:inceptionV3}和\ref{fig:inceptionV4}所示，V4版本利用TF等工具，能更方便地进行内存优化训练，相比V3有进一步提高（虽然不是很明显）。
+
+    \begin{figure}[htb]
+   \centering
+   \includegraphics[scale=0.2]{./figure/inception_v3.png}
+   \caption{Inception V3单元结构}
+   \label{fig:inceptionV3}
+   \end{figure}
+   
+    \begin{figure}[htb]
+   \centering
+   \includegraphics[scale=0.4]{./figure/inception_v4.jpg}
+   \caption{Inception V4单元结构(B模块)}
+   \label{fig:inceptionV4}
+   \end{figure}
+
+
 * 数据研究
 本项目有Kaggle提供了25000张训练照片和12500测试照片。对于数据的研究主要针对训练照片展开，而测试照片将会原封不动保留到测试步骤。数据的总量较少，因此难以独立完整地训练复杂的卷积神经网络。常见的处理流程包括，数据预筛选，数据增强等。这些处理流程的目的是为了尽量减少错误的信息对模型的误导（例如将贴上错误标签的图像用于分类），或是增加可用的训练的数据等。
 
 ** 预处理筛除
 首先，根据这篇[[https://github.com/ypwhs/dogs_vs_cats][Github内容]][fn::https://github.com/ypwhs/dogs_vs_cats]所述的方法创建符号链接，避免复制一遍照片。其次，依据[[https://zhuanlan.zhihu.com/p/34068451][这篇博客]][fn::https://zhuanlan.zhihu.com/p/34068451]所提示的信息，我也对Kaggle的数据集进行了筛查。所用的方法和博客作者类似，通过已经在ImageNet数据集下进行了训练的模型，对包括猫狗在内的多个类别能进行预先的判断。具体来说，结合时下比较精确的三个的网络模型（如图\ref{fig:keras}所示），ResNet50，Xception和Inception-ResNetV2，共同对原数据集进行预筛查。每个模型最终的结果选择TOP-10作为判断依据，即如果前10个判断中有出现猫/狗相关的判断，即可认为这张图片中存在猫/狗，反之则需要添加到排除列表中。在 *pre_check_img.py* 中有代码的具体实现。最终代码将会将结果以npy文件和txt文件的方式存储结果。npy文件能够方便的在接下来的编程中快速进行结果调用，而txt文件可以很直观的将结果显示出来，部分结果如图\ref{fig:remove}所示。图\ref{fig:missfigure}所示为两种典型的无法通过3种模型判断的照片。图\ref{fig:missfigure}左为标记在猫分类下的训练照片（cat.7920）。虽然人的肉眼可以看到确实有一张黑猫躺在深蓝色的床单上，但是由于对比度比较低，三个模型都没法将其判别，这样的照片很难给之后所需要训练的模型提供正确有用的信息。这张图还有一个特点是右侧的狗非常显眼，如果这张图标记成猫进行训练，很可能对本项目所需判断的猫狗分类产生比较大的干扰，因此需要移除。图\ref{fig:missfigure}右侧的图片被标记为狗（dog.8736），显然这是一个明显错误的标记，因此也需要将图片移出训练集。
 
-\begin{figure}[htb]
-\centering
-\includegraphics[scale=0.4]{./figure/keras.png}
-\caption{当前Keras提供的基于ImageNet训练模型排名}
-\label{fig:keras}
-\end{figure}
+   \begin{figure}[htb]
+   \centering
+   \includegraphics[scale=0.4]{./figure/keras.png}
+   \caption{当前Keras提供的基于ImageNet训练模型排名}
+   \label{fig:keras}
+   \end{figure}
+
 
 \begin{figure}[htb]
 \centering
@@ -163,3 +191,8 @@
 6. TrainingandTesting.py -- 训练并获得结果
 7. submission_first/final.csv  -- kaggle提交文件
 8. Final_jupyter_notebook.ipynb  -- 解释性jupyter notebook
+
+bibliography:../../../../LibData/Bibliography/bib.bib
+# bibliographystyle:unsrt 
+bibliographystyle:unsrt
+
